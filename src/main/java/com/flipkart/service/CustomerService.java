@@ -59,7 +59,7 @@ public class CustomerService {
 	 * @param userName the customer ID booking the slot
 	 * @return 0 if the slot is already booked, 1 if the slot is full, 2 if the slot is booked successfully
 	 */
-	public int bookSlots(String slotId, String userName) {
+	public int bookSlots(String slotId, String userName) throws Exception{
 		if (isFull(slotId)) {
 			return 1;
 		} else if (alreadyBooked(slotId, userName)) {
@@ -77,7 +77,7 @@ public class CustomerService {
 	 * @param userName the customer ID
 	 * @return true if the slot is already booked by the customer, false otherwise
 	 */
-	public boolean alreadyBooked(String slotId, String userName) {
+	public boolean alreadyBooked(String slotId, String userName) throws Exception{
 		return customerDao.changeGymSlot(slotId, userName);
 	}
 	
@@ -87,8 +87,13 @@ public class CustomerService {
 	 * @param slotId the slot ID to check
 	 * @return true if the slot is full, false otherwise
 	 */
-	public boolean isFull(String slotId) {
-		return customerDao.isFull(slotId);
+	public boolean isFull(String slotId) throws Exception{
+		try{
+			return customerDao.isFull(slotId);
+		}
+		catch(Exception e){
+			throw e;
+		}
 	}
 	
 	/**
@@ -109,7 +114,9 @@ public class CustomerService {
 	 * @param userName the customer ID
 	 */
 	public void bookedSlots(String userName) {
-		customerDao.bookedGymList(userName);
+		try{
+		customerDao.bookedGymList(userName);}
+		catch(Exception e){}
 		return ;
 	}
 }
