@@ -7,6 +7,7 @@ import com.flipkart.bean.GymOwner;
 import com.flipkart.bean.Gymnasium;
 import com.flipkart.constants.SQLConstants;
 import com.flipkart.utils.DBUtils;
+import com.flipkart.exception.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +27,7 @@ public class GymOwnerGMSDao {
 	 *
 	 * @param owner The gym owner information.
 	 */
-	public ArrayList<String> registerGymOwner(GymOwner owner) {
+	public ArrayList<String> registerGymOwner(GymOwner owner) throws Exception {
 		
 		ArrayList<String> arrayList = new ArrayList<>();
 		Connection conn = null;
@@ -41,9 +42,7 @@ public class GymOwnerGMSDao {
 			ResultSet output1 = stmt.executeQuery();
 //			output1.next();
 			if(output1.next()){
-				arrayList.add("false");arrayList.add("Username already exist");
-				System.out.println("");
-				return arrayList;
+				throw new userNameAlreadyExist();
 			}
 
 
@@ -98,13 +97,10 @@ public class GymOwnerGMSDao {
 		    
 		    stmt.executeUpdate();
 	    } catch(SQLException sqlExcep) {
-			System.out.println(sqlExcep);
-			arrayList.add("false");arrayList.add(sqlExcep.getMessage());
-			return arrayList;
+			throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
-			arrayList.add("false");arrayList.add(excep.getMessage());
-			return arrayList;
+			   throw excep;
 	    }
 		return arrayList;
 	}
@@ -115,7 +111,7 @@ public class GymOwnerGMSDao {
 	 *
 	 * @param userName The username of the gym owner.
 	 */
-	public GymOwner fetchOwnerDetails(String userName) {
+	public GymOwner fetchOwnerDetails(String userName) throws Exception{
 		System.out.println("reach1");
 		GymOwner gymOwner = new GymOwner();
 		Connection conn = null;
@@ -144,8 +140,10 @@ public class GymOwnerGMSDao {
 		    }
 	    } catch(SQLException sqlExcep) {
 //		       System.out.println(sqlExcep);
+			throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
 		return gymOwner;
 	}
@@ -155,7 +153,7 @@ public class GymOwnerGMSDao {
 	 *
 	 * @param userName The username of the gym owner.
 	 */
-	public ArrayList<Gymnasium> fetchMyGyms(String userName) {
+	public ArrayList<Gymnasium> fetchMyGyms(String userName) throws Exception{
 
 		ArrayList<Gymnasium> gymList = new ArrayList<>();
 		Connection conn = null;
@@ -180,8 +178,10 @@ public class GymOwnerGMSDao {
 		    }
 	    } catch(SQLException sqlExcep) {
 //		       System.out.println(sqlExcep);
+			throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
 		return gymList;
 	}
@@ -192,8 +192,8 @@ public class GymOwnerGMSDao {
 	 * @param userName The username of the gym owner.
 	 * @return true if the gym owner is approved, false otherwise.
 	 */
-	public boolean isOwnerApproved(String userName) {
-		   
+	public boolean isOwnerApproved(String userName) throws Exception{
+
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		   
@@ -207,10 +207,12 @@ public class GymOwnerGMSDao {
 		    if(output.next()) return output.getBoolean(1);
 	    } catch(SQLException sqlExcep) {
 //		       System.out.println(sqlExcep);
+			throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
-	    
+
 	    return false;
 	}
 	
@@ -221,7 +223,7 @@ public class GymOwnerGMSDao {
 	 * @param slotAvailable   The list of available slots.
 	 * @param capacity        The capacity of the gym.
 	 */
-	public void addGymDetails(Gymnasium gym, ArrayList<Integer> slotAvailable, int capacity) {
+	public void addGymDetails(Gymnasium gym, ArrayList<Integer> slotAvailable, int capacity) throws Exception{
 		   
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -250,8 +252,10 @@ public class GymOwnerGMSDao {
 		    
 	    } catch(SQLException sqlExcep) {
 //		       System.out.println(sqlExcep);
+			throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
 	    
 	    List<String> days=new ArrayList<String>();
@@ -285,8 +289,10 @@ public class GymOwnerGMSDao {
 				    
 	    		}catch(SQLException sqlExcep) {
 //				       System.out.println(sqlExcep);
+					throw sqlExcep;
 			    } catch(Exception excep) {
 			           excep.printStackTrace();
+					   throw excep;
 			    }
 	        }
         }

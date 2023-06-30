@@ -21,7 +21,8 @@ public class GymOwnerService {
 	 * @param owner the gym owner details for registration
 	 */
 	public void registerGymOwner(GymOwner owner) {
-		ownerDBService.registerGymOwner(owner);
+		try{ownerDBService.registerGymOwner(owner);}
+		catch (Exception e){}
 	}
 	
 	/**
@@ -30,7 +31,8 @@ public class GymOwnerService {
 	 * @param userName the owner ID
 	 */
 	public void fetchOwnerDetails(String userName) {
-		ownerDBService.fetchOwnerDetails(userName);
+		try{ownerDBService.fetchOwnerDetails(userName);}
+		catch (Exception e){}
 	}
 	
 	/**
@@ -39,7 +41,8 @@ public class GymOwnerService {
 	 * @param userName the owner ID
 	 */
 	public void fetchMyGyms(String userName) {
-		ownerDBService.fetchMyGyms(userName);
+		try{ownerDBService.fetchMyGyms(userName);}
+		catch (Exception e){}
 	}
 	
 	/**
@@ -50,7 +53,8 @@ public class GymOwnerService {
 	 * @param capacity the capacity of the gym
 	 */
 	public void addGymDetails(Gymnasium gym, ArrayList<Integer> slotAvailable, int capacity) {
-		ownerDBService.addGymDetails(gym, slotAvailable, capacity);
+		try{ownerDBService.addGymDetails(gym, slotAvailable, capacity);}
+		catch (Exception e){}
 	}
 	
 	/**
@@ -60,6 +64,7 @@ public class GymOwnerService {
 	 * @return true if the gym owner is approved, false otherwise
 	 */
 	public boolean isOwnerApproved(String userName) {
-		return ownerDBService.isOwnerApproved(userName);
+		try {return ownerDBService.isOwnerApproved(userName);}
+		catch (Exception e){return false;}
 	}
 }
