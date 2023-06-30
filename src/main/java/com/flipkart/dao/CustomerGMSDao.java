@@ -2,6 +2,8 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.*;
 import com.flipkart.constants.SQLConstants;
+import com.flipkart.exception.userNameAlreadyExist;
+import com.flipkart.exception.userNotExist;
 import com.flipkart.utils.DBUtils;
 
 import java.sql.Connection;
@@ -17,7 +19,7 @@ public class CustomerGMSDao {
 	 *
 	 * @param customer The customer information.
 	 */
-	public ArrayList<String> registerCustomer(Customer customer) {
+	public ArrayList<String> registerCustomer(Customer customer) throws Exception {
 		// Connect to the database and register the customer
 		// Retrieve customer ID and register in the Customer schema
 		// Register in the CustomerRegistration schema
@@ -36,9 +38,8 @@ public class CustomerGMSDao {
 			ResultSet output1 = stmt.executeQuery();
 //			output1.next();
 			if(output1.next()){
-				arlist.add("false");arlist.add("Username already exist");
-				System.out.println("");
-				return arlist;
+				throw new userNameAlreadyExist();
+
 			}
 
 			stmt = conn.prepareStatement(SQLConstants.SQL_SIZE_CUSTOMER_QUERY);
@@ -91,23 +92,20 @@ public class CustomerGMSDao {
 		    
 		    stmt.executeUpdate();
 	    } catch(SQLException sqlExcep) {
-		    System.out.println(sqlExcep);
-			arlist.add("false");arlist.add(sqlExcep.getMessage());
-			return arlist;
+		    throw sqlExcep;
 
-	    } catch(Exception excep) {
-		   	excep.printStackTrace();
-			arlist.add("false");arlist.add(excep.getMessage());
-			return arlist;
+		}
+		catch(Exception excep) {
+		   	throw excep;
 	    }
 		arlist.add("true");arlist.add("Sucess");
 		return arlist;
 	}
-	
+
 	/**
 	 * Fetches the list of all gyms from the database.
 	 */
-	public ArrayList<Gymnasium> fetchGymList() {
+	public ArrayList<Gymnasium> fetchGymList() throws Exception{
 		// Connect to the database and fetch the list of all gyms
 		// Print the fetched gym details
 		// Handle any exceptions that occur
@@ -129,8 +127,10 @@ public class CustomerGMSDao {
 		    }
 	    } catch(SQLException sqlExcep) {
 //		       System.out.println(sqlExcep);
+				throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
 		return gymList;
 	}
@@ -140,7 +140,7 @@ public class CustomerGMSDao {
 	 *
 	 * @param gymId The ID of the gym.
 	 */
-	public ArrayList<Slots> fetchSlotList(String gymId) {
+	public ArrayList<Slots> fetchSlotList(String gymId) throws Exception{
 		// Connect to the database and fetch the list of slots for the specified gym
 		// Print the fetched slot details
 		// Handle any exceptions that occur
@@ -164,9 +164,11 @@ public class CustomerGMSDao {
 		    			+ output.getString(4) +"    " + output.getString(5)+":00hrs");
 		    }
 	    } catch(SQLException sqlExcep) {
-//		       System.out.println(sqlExcep);
+		       System.out.println(sqlExcep);
+			   throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
 		return slotList;
 	}

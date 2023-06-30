@@ -5,10 +5,15 @@ import com.flipkart.bean.Customer;
 import com.flipkart.bean.Gymnasium;
 import com.flipkart.bean.Slots;
 import com.flipkart.dao.CustomerGMSDao;
+import com.flipkart.exception.userNameAlreadyExist;
+import com.flipkart.exception.userNotExist;
+import com.flipkart.response.customResponse;
+import com.flipkart.response.errorResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Path("customer")
@@ -16,34 +21,50 @@ public class CustomerResource {
 
     CustomerGMSDao customerDao = new CustomerGMSDao();
 
+//    @POST
+//    @Path("create")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public ArrayList<String> registerCustomerResource(Customer customer) {
+////        System.out.println(customer.toJson());
+////        User user = new User(customer.getUsername(),customer.getPassword(),3);
+//        return customerDao.registerCustomer(customer);
+//    }
+//
     @POST
     @Path("create")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ArrayList<String> registerCustomerResource(Customer customer) {
-//        System.out.println(customer.toJson());
-//        User user = new User(customer.getUsername(),customer.getPassword(),3);
-        return customerDao.registerCustomer(customer);
-    }
-//
-    @POST
-    @Path("creates")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response registerCustomerResources(Customer customer) {
-        try {
-            ArrayList<String> registrationResult = customerDao.registerCustomer(customer);
 
-            // Build a successful response with the data
-            return Response.ok(registrationResult).build();
-        } catch (Exception e) {
-            // Build an error response with the error message
+        try{
+        ArrayList<String> registrationResult = customerDao.registerCustomer(customer);
 
+//        if (registrationResult.get(0).equals("true")) {
+//            // Build a successful response with the data
+            return Response.status(Response.Status.OK)
+                .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "Registration successful", registrationResult))
+                .build();
+        } catch(SQLException sqlExcep) {
+		    System.out.println(sqlExcep);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Failed to register customer.")
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), sqlExcep.getMessage()))
+                    .build();
+
+	    } catch(userNameAlreadyExist excep) {
+		   	excep.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), excep.getMessage()))
+                    .build();
+	    }
+        catch(Exception excep) {
+            excep.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), excep.getMessage()))
                     .build();
         }
     }
+
     /**
      * No Usage
      * **/
@@ -54,16 +75,52 @@ public class CustomerResource {
     @GET
     @Path("fetchGym")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Gymnasium> fetchGymListResource() {
-        return customerDao.fetchGymList();
+    public Response fetchGymListResource() {
+        try{
+            ArrayList<Gymnasium> gymList = customerDao.fetchGymList();
+            return Response.status(Response.Status.OK)
+                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retireval successful", gymList))
+                    .build();
+        } catch(SQLException sqlExcep) {
+            System.out.println(sqlExcep);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), sqlExcep.getMessage()))
+                    .build();
+
+        } catch(Exception excep) {
+            excep.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), excep.getMessage()))
+                    .build();
+        }
+
     }
 
     @GET
     @Path("fetchGymSlot/{gymId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Slots> fetchAvailableSlotResource(@PathParam("gymId") String gymId) {
-        return customerDao.fetchSlotList(gymId);
+    public Response fetchAvailableSlotResource(@PathParam("gymId") String gymId) {
+        try{
+            ArrayList<Slots> slotList = customerDao.fetchSlotList(gymId);
+            return Response.status(Response.Status.OK)
+                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retireval successful", slotList))
+                    .build();
+        } catch(SQLException sqlExcep) {
+            System.out.println(sqlExcep);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), sqlExcep.getMessage()))
+                    .build();
+
+        } catch(Exception excep) {
+            excep.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), excep.getMessage()))
+                    .build();
+        }
+
     }
+
+
 
     @GET
     @Path("bookslot/{slotId}/{userName}")

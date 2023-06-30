@@ -17,8 +17,9 @@ public class CustomerService {
 	 * @param customer the customer details for registration
 	 */
 	public void registerCustomer(Customer customer) {
-		customerDao.registerCustomer(customer);
-	}
+		try{
+		customerDao.registerCustomer(customer);}
+		catch(Exception excep) {}}
 	
 	/**
 	 * Fetches the details of a customer with the specified customer ID.
@@ -34,7 +35,9 @@ public class CustomerService {
 	 * Fetches the list of gyms.
 	 */
 	public void fetchGymList() {
-		customerDao.fetchGymList();
+		try{
+		customerDao.fetchGymList();}
+		catch(Exception excep) {}
 		return;
 	}
 	
@@ -44,7 +47,9 @@ public class CustomerService {
 	 * @param gymId the gym ID
 	 */
 	public void fetchAvailableSlots(String gymId) {
-		customerDao.fetchSlotList(gymId);
+		try{
+		customerDao.fetchSlotList(gymId);}
+		catch(Exception excep) {}
 	}
 	
 	/**
