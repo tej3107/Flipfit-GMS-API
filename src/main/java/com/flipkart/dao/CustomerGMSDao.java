@@ -180,7 +180,7 @@ public class CustomerGMSDao {
 	 * @param slotId     The ID of the slot to book.
 	 * @param userName The ID of the customer.
 	 */
-	public void bookSlots(String slotId,String userName) {
+	public void bookSlots(String slotId,String userName) throws Exception{
 		// Connect to the database and book the slot for the customer
 		// Retrieve necessary details from the slot
 		// Insert the booking details into the database
@@ -210,9 +210,11 @@ public class CustomerGMSDao {
 			updateSlotCapacity(slotId, -1);
 		    
 	    } catch(SQLException sqlExcep) {
-//		       System.out.println(sqlExcep);
+		       System.out.println(sqlExcep);
+			   throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
 	    
 	    return;
@@ -224,7 +226,7 @@ public class CustomerGMSDao {
 	 * @param slotId The ID of the slot to check.
 	 * @return true if the slot is full, false otherwise.
 	 */
-	public boolean isFull(String slotId) {
+	public boolean isFull(String slotId) throws Exception{
 		// Connect to the database and check the current capacity of the slot
 		// Retrieve the total capacity of the slot
 		// Return whether the current capacity is equal to or greater than the total capacity
@@ -249,11 +251,13 @@ public class CustomerGMSDao {
 		    
 		    return current_capacity>=total_capacity;
 	    } catch(SQLException sqlExcep) {
-//		       System.out.println(sqlExcep);
+		       System.out.println(sqlExcep);
+			   throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
-		return false;
+
 	}
 	
 	/**
@@ -261,7 +265,7 @@ public class CustomerGMSDao {
 	 *
 	 * @param userName The ID of the customer.
 	 */
-	public ArrayList<BookedSlot> bookedGymList(String userName) {
+	public ArrayList<BookedSlot> bookedGymList(String userName) throws Exception{
 		// Connect to the database and fetch the list of slots booked by the customer
 		// Print the fetched slot details
 		// Handle any exceptions that occur
@@ -301,9 +305,11 @@ public class CustomerGMSDao {
 		    
 		    
 	    } catch(SQLException sqlExcep) {
-//		       System.out.println(sqlExcep);
+		       System.out.println(sqlExcep);
+			   throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
 		return bookedSlotList;
 	}
@@ -316,7 +322,7 @@ public class CustomerGMSDao {
 	 * @param userName The ID of the customer.
 	 * @return true if the slot is changed successfully, false otherwise.
 	 */
-	public boolean changeGymSlot(String slotId,String userName) {
+	public boolean changeGymSlot(String slotId,String userName) throws Exception{
 		// Connect to the database and retrieve the details of the new slot
 		// Retrieve the day and times of the new slot
 		// Retrieve the current bookings of the customer on the same day and times
@@ -368,14 +374,16 @@ public class CustomerGMSDao {
 		    return flag;
 			
 	    } catch(SQLException sqlExcep) {
-//		       System.out.println(sqlExcep);
+		       System.out.println(sqlExcep);
+			   throw sqlExcep;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			   throw excep;
 	    }
-		return true;
+
 	}
 
-	public boolean deleteSlot(String userName, String slotId){
+	public boolean deleteSlot(String userName, String slotId) throws Exception{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
@@ -387,14 +395,16 @@ public class CustomerGMSDao {
 
 			updateSlotCapacity(slotId, 1);
 		} catch(SQLException sqlExcep) {
-//		       System.out.println(sqlExcep);
+		       System.out.println(sqlExcep);
+			   throw sqlExcep;
 		} catch(Exception excep) {
 			excep.printStackTrace();
+			throw excep;
 		}
 		return true;
 	}
 
-	public boolean updateSlotCapacity(String slotId, int value){
+	public boolean updateSlotCapacity(String slotId, int value) throws Exception{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
@@ -415,8 +425,10 @@ public class CustomerGMSDao {
 
 		} catch(SQLException sqlExcep) {
 		       System.out.println(sqlExcep);
+			   throw sqlExcep;
 		} catch(Exception excep) {
 			excep.printStackTrace();
+			throw excep;
 		}
 		return true;
 	}

@@ -60,7 +60,10 @@ public class CustomerGMSMenu {
 		System.out.print("$ Enter your Slot ID: ");
 		String slotId = in.next();
 		
-		int response = customerService.bookSlots(slotId, customer.getUserName());
+		try {
+			int response = customerService.bookSlots(slotId, customer.getUserName());
+
+
 		switch (response) {
 			case 0:
 				System.out.println("Changed your slot time with new gym location");
@@ -73,6 +76,10 @@ public class CustomerGMSMenu {
 				break;
 			default:
 				System.out.println("Incorrect choice!!! Please try again!!!");
+		}
+		}
+		catch(Exception e){
+
 		}
 	}
 	
