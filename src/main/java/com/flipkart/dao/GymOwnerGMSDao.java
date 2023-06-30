@@ -39,8 +39,8 @@ public class GymOwnerGMSDao {
 			stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_USER_QUERY);
 			stmt.setString(1,owner.getUserName());
 			ResultSet output1 = stmt.executeQuery();
-			output1.next();
-			if(output1!=null){
+//			output1.next();
+			if(output1.next()){
 				arrayList.add("false");arrayList.add("Username already exist");
 				System.out.println("");
 				return arrayList;

@@ -34,8 +34,8 @@ public class CustomerGMSDao {
 			stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_USER_QUERY);
 			stmt.setString(1,customer.getUserName());
 			ResultSet output1 = stmt.executeQuery();
-			output1.next();
-			if(output1!=null){
+//			output1.next();
+			if(output1.next()){
 				arlist.add("false");arlist.add("Username already exist");
 				System.out.println("");
 				return arlist;
