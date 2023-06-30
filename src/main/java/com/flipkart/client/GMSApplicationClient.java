@@ -3,6 +3,7 @@
  */
 package com.flipkart.client;
 
+import com.flipkart.bean.Customer;
 import com.flipkart.bean.User;
 import com.flipkart.exception.incorrectDataType;
 import com.flipkart.exception.userNotExist;
@@ -24,7 +25,7 @@ public class GMSApplicationClient {
 	 * @param args The command line arguments.
 	 * @throws incorrectDataType Thrown if an incorrect data type is entered.
 	 */
-	public static void mains(String args[]) throws incorrectDataType {
+	public static void main(String args[]) throws incorrectDataType {
 	    System.out.println("\nWelcome to FlipFit Gymnasium Application");
 	    Scanner in = new Scanner(System.in);
 	    int choice = 1;
@@ -41,7 +42,7 @@ public class GMSApplicationClient {
 
 	        try {
 	            choice = in.nextInt();
-//	            in.nextLine(); // Consume the newline character after reading the integer
+	            in.nextLine(); // Consume the newline character after reading the integer
 
 	            switch (choice) {
 	                case 1:
@@ -67,7 +68,7 @@ public class GMSApplicationClient {
 	            }
 	        } catch (InputMismatchException e) {
 	            System.out.println("Incorrect data type. Please enter a number");
-//	            in.nextLine(); // Consume the invalid input
+	            in.nextLine(); // Consume the invalid input
 	        }
 	        catch (userNotExist e) {
 	            System.out.println(e.getMessage());
@@ -122,7 +123,8 @@ public class GMSApplicationClient {
 				
 			case 3: 
 				CustomerGMSMenu customer = new CustomerGMSMenu();
-				customer.customerActionPage(in, user);
+				Customer customer_ = new Customer(userName,password,3);
+				customer.customerActionPage(in,customer_);
 				break;
 				
 			default:

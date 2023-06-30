@@ -3,7 +3,6 @@
  */
 package com.flipkart.service;
 
-import com.flipkart.bean.Registration;
 import com.flipkart.bean.User;
 
 /**
@@ -16,7 +15,7 @@ public interface UserServiceInterface {
 	 * @param customerData the registration data for the customer
 	 * @return true if the registration is successful, false otherwise
 	 */
-	public boolean registerCustomer(Registration customerData);
+//	public boolean registerCustomer(Registration customerData);
 	
 	/**
 	 * Registers a gym owner with the provided registration data.
@@ -24,7 +23,7 @@ public interface UserServiceInterface {
 	 * @param ownerData the registration data for the gym owner
 	 * @return true if the registration is successful, false otherwise
 	 */
-	public boolean registerGymOwner(Registration ownerData);
+//	public boolean registerGymOwner(Registration ownerData);
 	
 	/**
 	 * Authenticates a user with the provided user data.

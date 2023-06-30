@@ -4,17 +4,16 @@ import java.time.LocalDate;
 
 public class CustomerRegistration {
     private String regId;
-    private String custId;
+//    private String custId;
     private LocalDate date;
-    private String username;
+    private String userName;
 
     public CustomerRegistration() {
     }
 
-    public CustomerRegistration(String regId, String custId, String username) {
+    public CustomerRegistration(String regId, String userName) {
         this.regId = regId;
-        this.custId = custId;
-        this.username = username;
+        this.userName = userName;
     }
 
     public String getRegId() {
@@ -25,13 +24,13 @@ public class CustomerRegistration {
         this.regId = regId;
     }
 
-    public String getCustId() {
-        return custId;
-    }
-
-    public void setCustId(String custId) {
-        this.custId = custId;
-    }
+//    public String getCustId() {
+//        return custId;
+//    }
+//
+//    public void setCustId(String custId) {
+//        this.custId = custId;
+//    }
 
     public LocalDate getDate() {
         return date;
@@ -41,11 +40,11 @@ public class CustomerRegistration {
         this.date = date;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

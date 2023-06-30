@@ -7,57 +7,69 @@ import java.time.LocalDate;
 /**
  * 
  */
-public class Customer {
-	private String customerId; // Customer ID of the customer.
-	private String username;
+public class Customer extends User{
+//	private String customerId; // Customer ID of the customer.
+//	private String username;
 	private String name; // Name of the customer.
 	private String mobile; // Mobile number of the customer.
 	private String email; // Email address of the customer.
 	private String address; // Address of the customer.
 	private LocalDate dob; // Date of birth of the customer.
-	private String password;
-	
+//	private String password;
+
+	public Customer(String userName, String password, int roleId, String name, String mobile, String email, String address) {
+		super(userName, password, roleId);
+		this.name = name;
+		this.mobile = mobile;
+		this.email = email;
+		this.address = address;
+	}
+
 	/**
 	 * Default constructor for the Customer class.
 	 */
 	public Customer() {
 		
 	}
-	
+
+	public Customer(String userName, String password, int roleId) {
+		super(userName, password, roleId);
+	}
+
 	/**
 	 * Returns the customer ID of the customer.
 	 *
 	 * @return the customer ID
 	 */
-	public String getCustomerId() {
-		return customerId;
-	}
+//	public String getCustomerId() {
+//		return customerId;
+//	}
 
 
-	public String getUsername() {
-		return username;
-	}
+//	public String getUsername() {
+//		return username;
+//	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+//	public void setUsername(String username) {
+//		this.username = username;
+//	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
 
 	/**
 	 * Sets the customer ID for the customer.
 	 *
 	 * @param customerId the customer ID to set
 	 */
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
+//	public void setCustomerId(String customerId) {
+//		this.customerId = customerId;
+//	}
 	
 	/**
 	 * Returns the name of the customer.

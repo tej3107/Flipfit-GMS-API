@@ -3,10 +3,10 @@
  */
 package com.flipkart.client;
 
-import java.util.Scanner;
-
 import com.flipkart.service.AdminGMSInterface;
 import com.flipkart.service.AdminGMSService;
+
+import java.util.Scanner;
 
 /**
  * Menu class that provides the admin interface for managing the Gym Management System.
@@ -91,14 +91,16 @@ public class AdminGMSMenu {
 					adminService.seePendingGymRequest();
 					break;
 				case 5:
-					if (adminService.seePendingGymOwnerRequest().size()==0) {
+					if (adminService.seePendingGymOwnerRequest().size()!=0) {
 						approveGymOwner(in, adminService);
 					}
+					else System.out.println("No Pending Request");
 					break;
 				case 6:
-					if (adminService.seePendingGymRequest().size()==0) {
+					if (adminService.seePendingGymRequest().size()!=0) {
 						approveGym(in, adminService);
 					}
+					System.out.println("No Pending Request");
 					break;
 				case 7:
 					adminService.approveAllOwnerRequest();

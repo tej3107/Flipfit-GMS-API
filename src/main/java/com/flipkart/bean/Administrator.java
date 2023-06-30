@@ -2,16 +2,21 @@
  * Represents an administrator.
  */
 package com.flipkart.bean;
-import java.util.*;
 
 /**
  * Administrator class represents the details of an administrator.
  */
-public class Administrator {
-	private String adminId; // Administrator ID of the administrator.
+public class Administrator extends User{
+//	private String adminId; // Administrator ID of the administrator.
 	private String name; // Name of the administrator.
 	private String mobile; // Mobile number of the administrator.
-	 
+
+	public Administrator(String userName, String password, int roleId, String name, String mobile) {
+		super(userName, password, roleId);
+		this.name = name;
+		this.mobile = mobile;
+	}
+
 	/**
 	 * Default constructor for the Administrator class.
 	 */
@@ -24,19 +29,19 @@ public class Administrator {
 	 *
 	 * @return the admin ID
 	 */
-	public String getAdminId() {
-		return adminId;
-	}
-	
-	/**
-	 * Sets the admin ID for the administrator.
-	 *
-	 * @param adminId the admin ID to set
-	 */
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
-	}
-	
+//	public String getAdminId() {
+//		return adminId;
+//	}
+//
+//	/**
+//	 * Sets the admin ID for the administrator.
+//	 *
+//	 * @param adminId the admin ID to set
+//	 */
+//	public void setAdminId(String adminId) {
+//		this.adminId = adminId;
+//	}
+//
 	/**
 	 * Returns the name of the administrator.
 	 *

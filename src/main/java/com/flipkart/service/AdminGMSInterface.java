@@ -42,10 +42,10 @@ public interface AdminGMSInterface {
 	/**
 	 * Approves a single gym owner request with the specified request ID.
 	 *
-	 * @param requestId the ID of the gym owner request to approve
+	 * @param userName the ID of the gym owner request to approve
 	 * @return true if the request is approved successfully, false otherwise
 	 */
-	public boolean approveSingleOwnerRequest(String requestId);
+	public boolean approveSingleOwnerRequest(String userName);
 	
 	/**
 	 * Approves all pending gym owner requests.
@@ -72,7 +72,7 @@ public interface AdminGMSInterface {
 	/**
 	 * Blocks a gym owner with the specified owner ID.
 	 *
-	 * @param gymOwnerId the ID of the gym owner to block
+	 * @param userName the ID of the gym owner to block
 	 */
-	public void blockGymOwner(String gymOwnerId);
+	public void blockGymOwner(String userName);
 }

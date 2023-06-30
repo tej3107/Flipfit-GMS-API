@@ -7,14 +7,14 @@ public class GymOwnerRegistration {
     private String regId;
     private LocalDate regDate;
     private LocalTime regTime;
-    private String gymOwnerId;
+    private String userName;
 
     public GymOwnerRegistration() {
     }
 
-    public GymOwnerRegistration(String regId, String gymOwnerId) {
+    public GymOwnerRegistration(String regId, String userName) {
         this.regId = regId;
-        this.gymOwnerId = gymOwnerId;
+        this.userName = userName;
     }
 
     public String getRegId() {
@@ -41,11 +41,11 @@ public class GymOwnerRegistration {
         this.regTime = regTime;
     }
 
-    public String getGymOwnerId() {
-        return gymOwnerId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setGymOwnerId(String gymOwnerId) {
-        this.gymOwnerId = gymOwnerId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

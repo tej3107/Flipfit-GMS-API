@@ -5,6 +5,7 @@ import com.flipkart.bean.Gymnasium;
 import com.flipkart.service.*;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
 @Path("admin")
@@ -41,14 +42,14 @@ public class AdminResource {
 
     @POST
     @Path("approveoneownerreq")
-    public boolean approveSingleOwnerRequestResource(@QueryParam("reqId")String reqId){
-        return admin.approveSingleOwnerRequest(reqId);
+    public boolean approveSingleOwnerRequestResource(@QueryParam("userName")String userName){
+        return admin.approveSingleOwnerRequest(userName);
     }
 
     @POST
     @Path("approveonegymreq")
-    public boolean approveSingleGymRequestResource(@QueryParam("reqId")String reqId){
-        return admin.approveSingleGymRequest(reqId);
+    public boolean approveSingleGymRequestResource(@QueryParam("userName")String userName){
+        return admin.approveSingleGymRequest(userName);
     }
 
     @POST
@@ -59,13 +60,14 @@ public class AdminResource {
 
     @POST
     @Path("approveallgymreq")
+    @Produces(MediaType.APPLICATION_JSON)
     public boolean approveAllGymRequestResource(){
         return admin.approveAllGymRequest();
     }
 
     @POST
     @Path("blockgymowner")
-    public void blockGymOwnerResource(@QueryParam("reqId")String reqId){
-        admin.blockGymOwner(reqId);
+    public void blockGymOwnerResource(@QueryParam("userName")String userName){
+        admin.blockGymOwner(userName);
     }
 }

@@ -24,9 +24,9 @@ public class UserService implements UserServiceInterface {
 	 * @param customerData the registration data for the customer
 	 * @return true if the registration is successful, false otherwise
 	 */
-	public boolean registerCustomer(Registration customerData) {
-		return true;
-	}
+//	public boolean registerCustomer(Registration customerData) {
+//		return true;
+//	}
 	
 	/**
 	 * Registers a gym owner with the provided registration data.
@@ -34,9 +34,9 @@ public class UserService implements UserServiceInterface {
 	 * @param ownerData the registration data for the gym owner
 	 * @return true if the registration is successful, false otherwise
 	 */
-	public boolean registerGymOwner(Registration ownerData) {
-		return true;
-	}
+//	public boolean registerGymOwner(Registration ownerData) {
+//		return true;
+//	}
 	
 	/**
 	 * Authenticates a user with the provided user data.

@@ -5,7 +5,6 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.GymOwner;
 import com.flipkart.bean.Gymnasium;
-import com.flipkart.bean.User;
 import com.flipkart.constants.SQLConstants;
 import com.flipkart.utils.DBUtils;
 
@@ -25,18 +24,29 @@ public class GymOwnerGMSDao {
 	/**
 	 * Registers a new gym owner in the database.
 	 *
-	 * @param user  The user information.
 	 * @param owner The gym owner information.
 	 */
-	public void registerGymOwner(User user, GymOwner owner) {
+	public ArrayList<String> registerGymOwner(GymOwner owner) {
 		
-		
+		ArrayList<String> arrayList = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
 		try {
 			// Getting owner Id
 			conn = DBUtils.getConnection();
+
+			stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_USER_QUERY);
+			stmt.setString(1,owner.getUserName());
+			ResultSet output1 = stmt.executeQuery();
+			output1.next();
+			if(output1!=null){
+				arrayList.add("false");arrayList.add("Username already exist");
+				System.out.println("");
+				return arrayList;
+			}
+
+
 			stmt = conn.prepareStatement(SQLConstants.SQL_SIZE_GYMOWNER_QUERY);
 		    ResultSet output = stmt.executeQuery();
 		    output.next();
@@ -49,7 +59,7 @@ public class GymOwnerGMSDao {
 		    
 		    // Registering in Owner schema
 		    stmt = conn.prepareStatement(SQLConstants.SQL_REGISTER_GYMOWNER_QUERY);
-		    stmt.setString(1, user.getUserName());
+		    stmt.setString(1, owner.getUserName());
 		    stmt.setString(2, owner.getName());
 		    stmt.setString(3, owner.getMobile());
 		    stmt.setString(4, owner.getEmail());
@@ -76,22 +86,27 @@ public class GymOwnerGMSDao {
 		    // Registering in CustomerRegistration Schema
 		    stmt = conn.prepareStatement(SQLConstants.SQL_REGISTER_GYMOWNER_REG_QUERY);
 		    stmt.setString(1, regId);
-		    stmt.setString(2, user.getUserName());
+		    stmt.setString(2, owner.getUserName());
 		    stmt.executeUpdate();
 		    
 		    
 		    // Registering in User Schema
 		    stmt = conn.prepareStatement(SQLConstants.SQL_REGISTER_GYMOWNER_USER_QUERY);
-		    stmt.setString(1, user.getUserName());
-		    stmt.setString(2, user.getPassword());
+		    stmt.setString(1, owner.getUserName());
+		    stmt.setString(2, owner.getPassword());
 		    stmt.setInt(3, 2);
 		    
 		    stmt.executeUpdate();
 	    } catch(SQLException sqlExcep) {
-//		       System.out.println(sqlExcep);
+			System.out.println(sqlExcep);
+			arrayList.add("false");arrayList.add(sqlExcep.getMessage());
+			return arrayList;
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
+			arrayList.add("false");arrayList.add(excep.getMessage());
+			return arrayList;
 	    }
+		return arrayList;
 	}
 	
 	
@@ -115,7 +130,7 @@ public class GymOwnerGMSDao {
 		    ResultSet output = stmt.executeQuery();
 		    System.out.println("\tID\tGymOwner Name");
 		    if(output.next()) {
-				gymOwner.setOwnerId(output.getString(1));
+				gymOwner.setUserName(output.getString(1));
 				gymOwner.setName(output.getString(2));
 				gymOwner.setMobile(output.getString(3));
 				gymOwner.setEmail(output.getString(4));
@@ -229,7 +244,7 @@ public class GymOwnerGMSDao {
 		    stmt.setDouble(4, gym.getTotalArea());
 		    stmt.setInt(5, gym.getNumItem());
 		    stmt.setInt(6, 0);
-		    stmt.setString(7, gym.getOwnerId());
+		    stmt.setString(7, gym.getUserName());
 		    
 		    stmt.executeUpdate();
 		    

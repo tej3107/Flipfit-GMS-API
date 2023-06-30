@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Gymnasium {
 	private String gymId; // ID of the gymnasium.
-	private String ownerId; // ID of the gym owner.
+	private String userName; // ID of the gym owner.
 	private ArrayList<Integer> slotAvailable;
 	private int capacity;
 	private String name; // Name of the gymnasium.
@@ -25,9 +25,9 @@ public class Gymnasium {
 	public Gymnasium() {
 		
 	}
-	public Gymnasium(String gymId, String name, String address, double totalArea, int numItem, int approved, String ownerId) {
+	public Gymnasium(String gymId, String name, String address, double totalArea, int numItem, int approved, String userName) {
 		this.gymId = gymId;
-		this.ownerId = ownerId;
+		this.userName = userName;
 		this.name = name;
 		this.address = address;
 		this.totalArea = totalArea;
@@ -151,17 +151,17 @@ public class Gymnasium {
 	 *
 	 * @return the owner ID
 	 */
-	public String getOwnerId() {
-		return ownerId;
+	public String getUserName() {
+		return userName;
 	}
 
 	/**
 	 * Sets the ID for the gym owner.
 	 *
-	 * @param ownerId the owner ID to set
+	 * @param userName the owner ID to set
 	 */
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	/**

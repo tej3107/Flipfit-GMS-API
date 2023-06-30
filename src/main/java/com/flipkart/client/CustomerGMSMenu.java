@@ -4,7 +4,6 @@
 package com.flipkart.client;
 
 import com.flipkart.bean.Customer;
-import com.flipkart.bean.User;
 import com.flipkart.service.CustomerService;
 
 import java.util.Scanner;
@@ -36,37 +35,32 @@ public class CustomerGMSMenu {
 		System.out.print("$ Enter your Password: ");
 		String password = in.next();
 		
-		User user = new User(username, password, 3);
-		Customer customer = new Customer();
-		customer.setName(name);
-		customer.setMobile(mobile);
-		customer.setEmail(email);
-		customer.setAddress(address);
-		customer.setPassword(password);
-		customer.setUsername(username);
+//		User user = new User(username, password, 3);
+
+		Customer customer = new Customer(username,password,3,name,mobile,email,address);
 		
-		customerService.registerCustomer(user, customer);
-		customerActionPage(in, user);
+		customerService.registerCustomer(customer);
+		customerActionPage(in,customer);
 	}
 	
 	/**
 	 * Displays the gym catalog and allows the customer to book a slot.
 	 *
-	 * @param in   The Scanner object for user input.
-	 * @param user The User object representing the customer.
+	 * @param in       The Scanner object for user input.
+	 * @param customer
 	 */
-	public void viewCatalog(Scanner in, User user) {
+	public void viewCatalog(Scanner in, Customer customer) {
 		System.out.println("Book a Slot*\nMenu:-");
 		customerService.fetchGymList();
 		
 		System.out.print("$ Enter your Gym ID: ");
 		String gymId = in.next();
 		
-		customerService.fetchAvilableSlots(gymId);
+		customerService.fetchAvailableSlots(gymId);
 		System.out.print("$ Enter your Slot ID: ");
 		String slotId = in.next();
 		
-		int response = customerService.bookSlots(slotId, user.getUserName());
+		int response = customerService.bookSlots(slotId, customer.getUserName());
 		switch (response) {
 			case 0:
 				System.out.println("Changed your slot time with new gym location");
@@ -85,10 +79,10 @@ public class CustomerGMSMenu {
 	/**
 	 * Displays the customer action page and handles user input for various actions.
 	 *
-	 * @param in   The Scanner object for user input.
-	 * @param user The User object representing the customer.
+	 * @param in       The Scanner object for user input.
+	 * @param customer
 	 */
-	public void customerActionPage(Scanner in, User user) {
+	public void customerActionPage(Scanner in, Customer customer) {
 		int choice = 0;
 		
 		while (choice != 3) {
@@ -101,10 +95,10 @@ public class CustomerGMSMenu {
 			
 			switch (choice) {
 				case 1:
-					viewCatalog(in, user);
+					viewCatalog(in,customer);
 					break;
 				case 2:
-					customerService.bookedSlots(user.getUserName());
+					customerService.bookedSlots(customer.getUserName());
 					break;
 				case 3:
 					break;

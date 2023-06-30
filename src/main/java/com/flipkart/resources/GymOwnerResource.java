@@ -2,7 +2,6 @@ package com.flipkart.resources;
 
 import com.flipkart.bean.GymOwner;
 import com.flipkart.bean.Gymnasium;
-import com.flipkart.bean.User;
 import com.flipkart.dao.GymOwnerGMSDao;
 
 import javax.ws.rs.*;
@@ -16,23 +15,24 @@ public class GymOwnerResource {
     @POST
     @Path("register")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void registerGymOwnerResource(GymOwner owner){
-        User user = new User(owner.getUsername(),owner.getPassword(),2);
-        ownerDBService.registerGymOwner(user, owner);
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<String> registerGymOwnerResource(GymOwner owner){
+//        User user = new User(owner.getUserName(),owner.getPassword(),2);
+        return ownerDBService.registerGymOwner(owner);
     }
 
     @GET
-    @Path("fetchDetail/{ownerId}")
+    @Path("fetchDetail/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public GymOwner fetchOwnerDetailsResource(@PathParam("ownerId") String ownerId){
-        return ownerDBService.fetchOwnerDetails(ownerId);
+    public GymOwner fetchOwnerDetailsResource(@PathParam("userName") String userName){
+        return ownerDBService.fetchOwnerDetails(userName);
     }
 
     @GET
-    @Path("fetchGym/{ownerId}")
+    @Path("fetchGym/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Gymnasium> fetchMyGymsResource(@PathParam("ownerId") String ownerId) {
-        return ownerDBService.fetchMyGyms(ownerId);
+    public ArrayList<Gymnasium> fetchMyGymsResource(@PathParam("userName") String userName) {
+        return ownerDBService.fetchMyGyms(userName);
     }
 
     @POST
@@ -45,9 +45,9 @@ public class GymOwnerResource {
     }
 
     @GET
-    @Path("isApproved/{ownerId}")
+    @Path("isApproved/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean isOwnerApproved(@PathParam("ownerId") String ownerId) {
-        return ownerDBService.isOwnerApproved(ownerId);
+    public boolean isOwnerApproved(@PathParam("userName") String userName) {
+        return ownerDBService.isOwnerApproved(userName);
     }
 }

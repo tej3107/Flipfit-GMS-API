@@ -15,24 +15,34 @@ public class CustomerGMSDao {
 	/**
 	 * Registers a new customer in the database.
 	 *
-	 * @param user     The user information.
 	 * @param customer The customer information.
 	 */
-	public void registerCustomer(User user, Customer customer) {
+	public ArrayList<String> registerCustomer(Customer customer) {
 		// Connect to the database and register the customer
 		// Retrieve customer ID and register in the Customer schema
 		// Register in the CustomerRegistration schema
 		// Register in the User schema
 		// Handle any exceptions that occur
-		
+		ArrayList<String> arlist = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
 		try {
 			// Getting customer Id
 			conn = DBUtils.getConnection();
+
+			stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_USER_QUERY);
+			stmt.setString(1,customer.getUserName());
+			ResultSet output1 = stmt.executeQuery();
+			output1.next();
+			if(output1!=null){
+				arlist.add("false");arlist.add("Username already exist");
+				System.out.println("");
+				return arlist;
+			}
+
 			stmt = conn.prepareStatement(SQLConstants.SQL_SIZE_CUSTOMER_QUERY);
-		    ResultSet output = stmt.executeQuery();
+			ResultSet output = stmt.executeQuery();
 		    output.next();
 		    int count = output.getInt(1);
 		    count++;
@@ -42,15 +52,15 @@ public class CustomerGMSDao {
 		    
 		    
 		    // Registering in Customer schema
-			System.out.println(user.getUserName()+customer.getName()+customer.getMobile());
+			System.out.println(customer.getUserName()+customer.getName()+customer.getMobile());
 			System.out.println(customer.getEmail()+customer.getAddress());
 		    stmt = conn.prepareStatement(SQLConstants.SQL_REGISTER_CUSTOMER_QUERY);
-		    stmt.setString(1, user.getUserName());
-		    stmt.setString(2, user.getUserName());
-		    stmt.setString(3, customer.getName());
-		    stmt.setString(4, customer.getMobile());
-		    stmt.setString(5, customer.getEmail());
-		    stmt.setString(6, customer.getAddress());
+//		    stmt.setString(1, customer.getUserName());
+		    stmt.setString(1, customer.getUserName());
+		    stmt.setString(2, customer.getName());
+		    stmt.setString(3, customer.getMobile());
+		    stmt.setString(4, customer.getEmail());
+		    stmt.setString(5, customer.getAddress());
 		    
 		    stmt.executeUpdate();
 		    
@@ -69,22 +79,29 @@ public class CustomerGMSDao {
 		    // Registering in CustomerRegistration Schema
 		    stmt = conn.prepareStatement(SQLConstants.SQL_REGISTER_CUSTOMER_REG_QUERY);
 		    stmt.setString(1, regId);
-		    stmt.setString(2, user.getUserName());
+		    stmt.setString(2, customer.getUserName());
 		    stmt.executeUpdate();
 		    
 		    
 		    // Registering in User Schema
 		    stmt = conn.prepareStatement(SQLConstants.SQL_REGISTER_CUSTOMER_USER_QUERY);
-		    stmt.setString(1, user.getUserName());
-		    stmt.setString(2, user.getPassword());
+		    stmt.setString(1, customer.getUserName());
+		    stmt.setString(2, customer.getPassword());
 		    stmt.setInt(3, 3);
 		    
 		    stmt.executeUpdate();
 	    } catch(SQLException sqlExcep) {
-//		       System.out.println(sqlExcep);
+		    System.out.println(sqlExcep);
+			arlist.add("false");arlist.add(sqlExcep.getMessage());
+			return arlist;
+
 	    } catch(Exception excep) {
-	           excep.printStackTrace();
+		   	excep.printStackTrace();
+			arlist.add("false");arlist.add(excep.getMessage());
+			return arlist;
 	    }
+		arlist.add("true");arlist.add("Sucess");
+		return arlist;
 	}
 	
 	/**
@@ -159,9 +176,9 @@ public class CustomerGMSDao {
 	 * Books a slot for a customer in the database.
 	 *
 	 * @param slotId     The ID of the slot to book.
-	 * @param customerId The ID of the customer.
+	 * @param userName The ID of the customer.
 	 */
-	public void bookSlots(String slotId,String customerId) {
+	public void bookSlots(String slotId,String userName) {
 		// Connect to the database and book the slot for the customer
 		// Retrieve necessary details from the slot
 		// Insert the booking details into the database
@@ -182,11 +199,13 @@ public class CustomerGMSDao {
 		    
 		    stmt = conn.prepareStatement(SQLConstants.SQL_INSERT_BOOK_QUERY);
 		    stmt.setString(1, slotId);
-		    stmt.setString(2, customerId);
+		    stmt.setString(2, userName);
 		    stmt.setString(3, date);
 		    stmt.setInt(4, times);
 		    
 		    stmt.executeUpdate();
+
+			updateSlotCapacity(slotId, -1);
 		    
 	    } catch(SQLException sqlExcep) {
 //		       System.out.println(sqlExcep);
@@ -238,9 +257,9 @@ public class CustomerGMSDao {
 	/**
 	 * Fetches the list of gyms booked by a customer from the database.
 	 *
-	 * @param custId The ID of the customer.
+	 * @param userName The ID of the customer.
 	 */
-	public ArrayList<BookedSlot> bookedGymList(String custId) {
+	public ArrayList<BookedSlot> bookedGymList(String userName) {
 		// Connect to the database and fetch the list of slots booked by the customer
 		// Print the fetched slot details
 		// Handle any exceptions that occur
@@ -251,11 +270,11 @@ public class CustomerGMSDao {
 		try {
 			conn = DBUtils.getConnection(); 
 		    stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_SLOTID_FOR_CUSTOMER);
-		    stmt.setString(1, custId); 
+		    stmt.setString(1, userName);
 		    ResultSet output = stmt.executeQuery();
 //		    System.out.println("customer fetch");
 
-//			System.out.println("\tSlotID\tGymID\tDay\ttime");
+			System.out.println("\tSlotID\tGymID\tDay\ttime");
 		    while(output.next()) {
 //				System.out.println(output.getString(2));
 				String slotId= output.getString(2);
@@ -263,11 +282,18 @@ public class CustomerGMSDao {
 			    stmt.setString(1, slotId);
 			    ResultSet out = stmt.executeQuery();
 			    out.next();
-//				System.out.println("slot fetch");
+
+				stmt = conn.prepareStatement(SQLConstants.SQL_FETC_GYM_DET_QUERY);
+				stmt.setString(1, out.getString(2));
+				ResultSet out2 = stmt.executeQuery();
+				out2.next();
+
+				System.out.println("\t"+output.getString(2)+"\t "+out.getString(1)+"\t "
+						+output.getString(4)+"\t "+output.getString(5));
 
 				BookedSlot bookedSlot = new BookedSlot(output.getInt(1),
 						output.getString(2),output.getString(3),
-						output.getString(4),output.getInt(5));
+						output.getString(4),output.getInt(5), out2.getString(3), out2.getString(2));
 				bookedSlotList.add(bookedSlot);
 		    }
 		    
@@ -285,10 +311,10 @@ public class CustomerGMSDao {
 	 * Changes the booked slot for a customer in the database.
 	 *
 	 * @param slotId     The ID of the new slot to book.
-	 * @param customerId The ID of the customer.
+	 * @param userName The ID of the customer.
 	 * @return true if the slot is changed successfully, false otherwise.
 	 */
-	public boolean changeGymSlot(String slotId,String customerId) {
+	public boolean changeGymSlot(String slotId,String userName) {
 		// Connect to the database and retrieve the details of the new slot
 		// Retrieve the day and times of the new slot
 		// Retrieve the current bookings of the customer on the same day and times
@@ -311,7 +337,7 @@ public class CustomerGMSDao {
 		    
 		    
 		    stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_BOOK_QUERY_FOR_A_CUST);
-		    stmt.setString(1, customerId); 
+		    stmt.setString(1, userName);
 		    stmt.setString(2, day); 
 		    stmt.setInt(3, times); 
 		    output = stmt.executeQuery();
@@ -322,7 +348,7 @@ public class CustomerGMSDao {
 		    	flag=true;
 //		    	System.out.println("Reaching to delete  - " + Integer.toString(output.getInt(1)));
 		        PreparedStatement preparedStmt = conn.prepareStatement(SQLConstants.SQL_DELETE_QUERY_FOR_CUST_IN_BOOKEDSLOT);
-		        preparedStmt.setString(1, customerId);
+		        preparedStmt.setString(1, userName);
 		        preparedStmt.setString(2, day);
 		        preparedStmt.setInt(3, times);
 		        preparedStmt.execute();
@@ -330,7 +356,7 @@ public class CustomerGMSDao {
 			    
 			    stmt = conn.prepareStatement(SQLConstants.SQL_INSERT_BOOK_QUERY);
 			    stmt.setString(1, slotId);
-			    stmt.setString(2, customerId);
+			    stmt.setString(2, userName);
 			    stmt.setString(3, day);
 			    stmt.setInt(4, times);
 			    
@@ -344,6 +370,52 @@ public class CustomerGMSDao {
 	    } catch(Exception excep) {
 	           excep.printStackTrace();
 	    }
+		return true;
+	}
+
+	public boolean deleteSlot(String userName, String slotId){
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement(SQLConstants.SQL_DELETE_QUERY_CUST_USER_IN_BOOKEDSLOT);
+			stmt.setString(1, userName);
+			stmt.setString(2, slotId);
+			stmt.execute();
+
+			updateSlotCapacity(slotId, 1);
+		} catch(SQLException sqlExcep) {
+//		       System.out.println(sqlExcep);
+		} catch(Exception excep) {
+			excep.printStackTrace();
+		}
+		return true;
+	}
+
+	public boolean updateSlotCapacity(String slotId, int value){
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement(SQLConstants.SQL_CHECK_CAPACITY_QUERY);
+			stmt.setString(1, slotId);
+			ResultSet output = stmt.executeQuery();
+			output.next();
+			int capacity = output.getInt(3)+value;
+			System.out.println(capacity);
+
+			stmt = conn.prepareStatement(SQLConstants.SQL_UPDATE_CAPACITY_QUERY);
+			stmt.setInt(1, capacity);
+			stmt.setString(2, slotId);
+
+			stmt.executeUpdate();
+
+
+		} catch(SQLException sqlExcep) {
+		       System.out.println(sqlExcep);
+		} catch(Exception excep) {
+			excep.printStackTrace();
+		}
 		return true;
 	}
 	

@@ -7,10 +7,10 @@ import java.time.LocalDate;
 /**
  * 
  */
-public class GymOwner {
-	private String ownerId; // ID of the gym owner.
+public class GymOwner extends User{
+//	private String ownerId; // ID of the gym owner.
 	private String name; // Name of the gym owner.
-	private String username;
+//	private String username;
 	private String mobile; // Mobile number of the gym owner.
 	private String email; // Email address of the gym owner.
 	private String address; // Address of the gym owner.
@@ -19,11 +19,12 @@ public class GymOwner {
 	private String aadhaarNumber; // Aadhaar number of the gym owner.
 	private String panNumber; // PAN number of the gym owner.
 	private String gstNumber; // GST number of the gym owner.
-	private String password;
+//	private String password;
 	private int approved; // Approval status of the gym owner.
 
-	public GymOwner(String ownerId, String name, String mobile, String email, String address, String aadhaarNumber, String panNumber, String gstNumber, int approved) {
-		this.ownerId = ownerId;
+	public GymOwner(String username, String password, int roleId,  String name, String mobile, String email, String address, String aadhaarNumber, String panNumber, String gstNumber, int approved) {
+		super(username, password, roleId);
+//		this.ownerId = ownerId;
 		this.name = name;
 		this.mobile = mobile;
 		this.email = email;
@@ -62,21 +63,21 @@ public class GymOwner {
 		this.approved = approved;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+//	public String getUsername() {
+//		return username;
+//	}
+//
+//	public void setUsername(String username) {
+//		this.username = username;
+//	}
+//
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
 
 	public int getApproved() {
 		return approved;
@@ -87,18 +88,18 @@ public class GymOwner {
 	 *
 	 * @return the owner ID
 	 */
-	public String getOwnerId() {
-		return ownerId;
-	}
-	
-	/**
-	 * Sets the ID for the gym owner.
-	 *
-	 * @param ownerId the owner ID to set
-	 */
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
-	}
+//	public String getOwnerId() {
+//		return ownerId;
+//	}
+//
+//	/**
+//	 * Sets the ID for the gym owner.
+//	 *
+//	 * @param ownerId the owner ID to set
+//	 */
+//	public void setOwnerId(String ownerId) {
+//		this.ownerId = ownerId;
+//	}
 	
 	/**
 	 * Returns the name of the gym owner.

@@ -3,19 +3,39 @@ package com.flipkart.bean;
 public class BookedSlot {
     private int bookingId;
     private String slotId;
-    private String custId;
+    private String userName;
     private String slotDate;
     private int slotTime;
+    private String address;
+    private String gymName;
 
     public BookedSlot() {
     }
 
-    public BookedSlot(int bookingId, String slotId, String custId, String slotDate, int slotTime) {
+    public BookedSlot(int bookingId, String slotId, String userName, String slotDate, int slotTime,String address, String gymName) {
         this.bookingId = bookingId;
         this.slotId = slotId;
-        this.custId = custId;
+        this.userName = userName;
         this.slotDate = slotDate;
         this.slotTime = slotTime;
+        this.address = address;
+        this.gymName = gymName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getGymName() {
+        return gymName;
+    }
+
+    public void setGymName(String gymName) {
+        this.gymName = gymName;
     }
 
     public int getBookingId() {
@@ -34,12 +54,12 @@ public class BookedSlot {
         this.slotId = slotId;
     }
 
-    public String getCustId() {
-        return custId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setCustId(String custId) {
-        this.custId = custId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getSlotDate() {

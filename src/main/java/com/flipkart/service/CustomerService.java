@@ -3,7 +3,6 @@
  */
 package com.flipkart.service;
 import com.flipkart.bean.*;
-import java.time.LocalDate;
 import com.flipkart.dao.*;
 
 /**
@@ -15,20 +14,19 @@ public class CustomerService {
 	/**
 	 * Registers a customer with the provided user and customer details.
 	 *
-	 * @param user the user details for registration
 	 * @param customer the customer details for registration
 	 */
-	public void registerCustomer(User user, Customer customer) {
-		customerDao.registerCustomer(user, customer);
+	public void registerCustomer(Customer customer) {
+		customerDao.registerCustomer(customer);
 	}
 	
 	/**
 	 * Fetches the details of a customer with the specified customer ID.
 	 *
-	 * @param customerId the customer ID
+	 * @param userName the customer ID
 	 * @return the customer details
 	 */
-	public Customer fetchCustomerDetails(String customerId) {
+	public Customer fetchCustomerDetails(String userName) {
 		return new Customer();
 	}
 	
@@ -45,7 +43,7 @@ public class CustomerService {
 	 *
 	 * @param gymId the gym ID
 	 */
-	public void fetchAvilableSlots(String gymId) {
+	public void fetchAvailableSlots(String gymId) {
 		customerDao.fetchSlotList(gymId);
 	}
 	
@@ -53,16 +51,16 @@ public class CustomerService {
 	 * Books a slot for the specified slot ID and customer ID.
 	 *
 	 * @param slotId the slot ID to book
-	 * @param customerId the customer ID booking the slot
+	 * @param userName the customer ID booking the slot
 	 * @return 0 if the slot is already booked, 1 if the slot is full, 2 if the slot is booked successfully
 	 */
-	public int bookSlots(String slotId, String customerId) {
+	public int bookSlots(String slotId, String userName) {
 		if (isFull(slotId)) {
 			return 1;
-		} else if (alreadyBooked(slotId, customerId)) {
+		} else if (alreadyBooked(slotId, userName)) {
 			return 0;
 		} else {
-			customerDao.bookSlots(slotId, customerId);
+			customerDao.bookSlots(slotId, userName);
 			return 2;
 		}
 	}
@@ -71,11 +69,11 @@ public class CustomerService {
 	 * Checks if the specified slot ID is already booked by the customer.
 	 *
 	 * @param slotId the slot ID to check
-	 * @param customerId the customer ID
+	 * @param userName the customer ID
 	 * @return true if the slot is already booked by the customer, false otherwise
 	 */
-	public boolean alreadyBooked(String slotId, String customerId) {
-		return customerDao.changeGymSlot(slotId, customerId);
+	public boolean alreadyBooked(String slotId, String userName) {
+		return customerDao.changeGymSlot(slotId, userName);
 	}
 	
 	/**
@@ -103,10 +101,10 @@ public class CustomerService {
 	/**
 	 * Retrieves the list of booked slots for the specified customer ID.
 	 *
-	 * @param customerId the customer ID
+	 * @param userName the customer ID
 	 */
-	public void bookedSlots(String customerId) {
-		customerDao.bookedGymList(customerId);
+	public void bookedSlots(String userName) {
+		customerDao.bookedGymList(userName);
 		return ;
 	}
 }

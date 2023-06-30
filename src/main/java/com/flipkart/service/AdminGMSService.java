@@ -3,9 +3,11 @@
  */
 package com.flipkart.service;
 
-import com.flipkart.bean.*;
-import java.util.*;
-import com.flipkart.dao.*;
+import com.flipkart.bean.GymOwner;
+import com.flipkart.bean.Gymnasium;
+import com.flipkart.dao.AdminGMSDao;
+
+import java.util.ArrayList;
 
 /**
  * 
@@ -40,7 +42,7 @@ public class AdminGMSService implements AdminGMSInterface{
 	 * @return true if there are pending gym owner requests, false otherwise
 	 */
 	public ArrayList<GymOwner> seePendingGymOwnerRequest() {
-		return adminDBService.fetchPedningGymOwnerRequests();
+		return adminDBService.fetchPendingGymOwnerRequests();
 		
 	}
 	
@@ -56,11 +58,11 @@ public class AdminGMSService implements AdminGMSInterface{
 	/**
 	 * Approves a single gym owner request with the specified request ID.
 	 *
-	 * @param requestId the ID of the gym owner request to approve
+	 * @param userName the ID of the gym owner request to approve
 	 * @return true if the request is approved successfully, false otherwise
 	 */
-	public boolean approveSingleOwnerRequest(String requestId) {
-		adminDBService.updateSingleGymOwnerRequests(requestId);
+	public boolean approveSingleOwnerRequest(String userName) {
+		adminDBService.updateSingleGymOwnerRequests(userName);
 		return true;
 	}
 	
@@ -98,9 +100,9 @@ public class AdminGMSService implements AdminGMSInterface{
 	/**
 	 * Blocks a gym owner with the specified owner ID.
 	 *
-	 * @param gymOwnerId the ID of the gym owner to block
+	 * @param userName the ID of the gym owner to block
 	 */
-	public void blockGymOwner(String gymOwnerId) {
-		adminDBService.unApproveGymOwner(gymOwnerId);
+	public void blockGymOwner(String userName) {
+		adminDBService.unApproveGymOwner(userName);
 	}
 }

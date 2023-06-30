@@ -1,15 +1,15 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.GymOwner;
+import com.flipkart.bean.Gymnasium;
+import com.flipkart.constants.SQLConstants;
+import com.flipkart.utils.DBUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.flipkart.bean.GymOwner;
-import com.flipkart.bean.Gymnasium;
-import com.flipkart.constants.SQLConstants;
-import com.flipkart.utils.DBUtils;
 
 public class AdminGMSDao {
 	/**
@@ -32,8 +32,10 @@ public class AdminGMSDao {
 		       // At least one gym owner is present
 		       System.out.println("\n\tID\tGymOwner Name");
 		       do {
-				   GymOwner gmown = new GymOwner(
+				   GymOwner gym_own = new GymOwner(
 					   output.getString(1),
+					   "pwd",
+					   3,
 					   output.getString(2),
 					   output.getString(3),
 					   output.getString(4),
@@ -43,7 +45,7 @@ public class AdminGMSDao {
 					   output.getString(9),
 					   output.getInt(10)
 				   );
-				   gymOwners.add(gmown);
+				   gymOwners.add(gym_own);
 		           System.out.println("\t" + output.getString(1) + " \t " + output.getString(2));
 		       } while (output.next());
 		   } else {
@@ -110,7 +112,7 @@ public class AdminGMSDao {
    * 
    * @return true if at least one pending gym owner request is present, false otherwise.
    */
-   public ArrayList<GymOwner> fetchPedningGymOwnerRequests() {
+   public ArrayList<GymOwner> fetchPendingGymOwnerRequests() {
 	    // System.out.println("Connecting to database...");
 	   ArrayList<GymOwner> gymOwners = new ArrayList<>();
 	    Connection conn = null;
@@ -125,6 +127,7 @@ public class AdminGMSDao {
 	        if (output.next()) {
 				GymOwner gmown = new GymOwner(
 						output.getString(1),
+						"pwd",3,
 						output.getString(2),
 						output.getString(3),
 						output.getString(4),
@@ -194,7 +197,7 @@ public class AdminGMSDao {
 //	            return false;
 	        }
 	    } catch (SQLException sqlExcep) {
-	        // System.out.println(sqlExcep);
+	         System.out.println(sqlExcep);
 	    } catch (Exception excep) {
 	        excep.printStackTrace();
 	    }
@@ -217,7 +220,7 @@ public class AdminGMSDao {
 		   stmt = conn.prepareStatement(SQLConstants.SQL_APPR_ALL_OWNER_QUERY);
 		   stmt.executeUpdate();
 	   } catch(SQLException sqlExcep) {
-//		      System.out.println(sqlExcep);
+		      System.out.println(sqlExcep);
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
 	   } 
@@ -239,7 +242,7 @@ public class AdminGMSDao {
 		   stmt = conn.prepareStatement(SQLConstants.SQL_APPR_ALL_GYM_QUERY);
 		   stmt.executeUpdate();
 	   } catch(SQLException sqlExcep) {
-//		      System.out.println(sqlExcep);
+		      System.out.println(sqlExcep);
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
 	   } 
@@ -249,9 +252,9 @@ public class AdminGMSDao {
    /**
     * Updates a single gym owner request as approved in the database.
     * 
-    * @param id the ID of the gym owner request to be updated.
+    * @param userName the ID of the gym owner request to be updated.
     */
-   public void updateSingleGymOwnerRequests(String id) {
+   public void updateSingleGymOwnerRequests(String userName) {
 //	   System.out.println("Connecting to database...");
 	   
 	   Connection conn = null;
@@ -261,10 +264,10 @@ public class AdminGMSDao {
 		   conn = DBUtils.getConnection();
 		   
 		   stmt = conn.prepareStatement(SQLConstants.SQL_APPR_SING_OWNER_REQ_QUERY);
-		   stmt.setString(1, id);
+		   stmt.setString(1, userName);
 		   stmt.executeUpdate();
 	   } catch(SQLException sqlExcep) {
-//		      System.out.println(sqlExcep);
+		      System.out.println(sqlExcep);
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
 	   } 
@@ -274,9 +277,9 @@ public class AdminGMSDao {
    /**
     * Updates a single gymnasium request as approved in the database.
     * 
-    * @param id the ID of the gymnasium request to be updated.
+    * @param userName the ID of the gymnasium request to be updated.
     */
-   public void updateSingleGymnasiumRequests(String id) {
+   public void updateSingleGymnasiumRequests(String userName) {
 //	   System.out.println("Connecting to database...");
 	   
 	   Connection conn = null;
@@ -286,10 +289,10 @@ public class AdminGMSDao {
 		   conn = DBUtils.getConnection();
 		   
 		   stmt = conn.prepareStatement(SQLConstants.SQL_APPR_SING_GYM_REQ_QUERY);
-		   stmt.setString(1, id);
+		   stmt.setString(1, userName);
 		   stmt.executeUpdate();
 	   } catch(SQLException sqlExcep) {
-//		      System.out.println(sqlExcep);
+		      System.out.println(sqlExcep);
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
 	   } 
@@ -319,7 +322,7 @@ public class AdminGMSDao {
 		   stmt.executeUpdate();
 		   
 	   } catch(SQLException sqlExcep) {
-//		      System.out.println(sqlExcep);
+		      System.out.println(sqlExcep);
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
 	   }

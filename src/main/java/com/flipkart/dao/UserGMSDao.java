@@ -2,12 +2,11 @@
  * DAO class for User management system.
  */
 package com.flipkart.dao;
-import java.sql.Connection;
-import com.flipkart.bean.*;
+
 import com.flipkart.constants.SQLConstants;
 import com.flipkart.utils.DBUtils;
 
-import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,7 +43,7 @@ public class UserGMSDao {
 		   else return exitCode;
 		   
 	   } catch(SQLException sqlExcep) {
-//		      System.out.println(sqlExcep);
+		      System.out.println(sqlExcep);
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
 	   }

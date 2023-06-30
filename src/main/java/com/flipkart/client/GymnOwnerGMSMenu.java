@@ -3,14 +3,14 @@
  */
 package com.flipkart.client;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-
 import com.flipkart.bean.GymOwner;
 import com.flipkart.bean.Gymnasium;
 import com.flipkart.bean.User;
 import com.flipkart.service.GymOwnerService;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * Class representing the Gym Owner's menu in the Gym Management System.
@@ -45,17 +45,11 @@ public class GymnOwnerGMSMenu {
 		String gstNumber = in.next();
 		System.out.print("Enter your Password: ");
 		String password = in.next();
-		User user = new User(username, password, 3);
+		User user = new User(username, password, 2);
 		
-		GymOwner owner = new GymOwner();
-		owner.setName(name);
-		owner.setMobile(mobile);
-		owner.setEmail(email);
-		owner.setAddress(address);
-		owner.setAadhaarNumber(aadhaarNumber);
-		owner.setPanNumber(panNumber);
-		owner.setGstNumber(gstNumber);
-		ownerService.registerGymOwner(user, owner);
+		GymOwner owner = new GymOwner(username,password,2,name,mobile,email,address,aadhaarNumber,panNumber,gstNumber,0);
+
+		ownerService.registerGymOwner(owner);
 		
 		gymOwnerActionPage(in, user);
 	}
@@ -82,9 +76,9 @@ public class GymnOwnerGMSMenu {
 	 * Registers a new Gym for a Gym Owner.
 	 *
 	 * @param in       The Scanner object for user input.
-	 * @param ownerId  The ID of the Gym Owner.
+	 * @param userName  The ID of the Gym Owner.
 	 */
-	public void registerGym(Scanner in, String ownerId) {
+	public void registerGym(Scanner in, String userName) {
 		Gymnasium gym = new Gymnasium();
 		
 		System.out.print("$  Gym Name: ");
@@ -108,14 +102,14 @@ public class GymnOwnerGMSMenu {
 		String timeline = in.nextLine();
 		timeline = in.nextLine();
 		
-		ArrayList<Integer> slotAvailable = new ArrayList<Integer>();
+		ArrayList<Integer> slotAvailable = new ArrayList<>();
 		
 		StringTokenizer st = new StringTokenizer(timeline);  
 	    while (st.hasMoreTokens()) { 
 	        slotAvailable.add(Integer.parseInt(st.nextToken()));  
 	    }  
 	     
-		gym.setOwnerId(ownerId);
+		gym.setUserName(userName);
 		gym.setName(name);
 		gym.setAddress(address);
 		gym.setTotalArea(area);
