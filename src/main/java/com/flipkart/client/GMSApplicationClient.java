@@ -25,7 +25,7 @@ public class GMSApplicationClient {
 	 * @param args The command line arguments.
 	 * @throws incorrectDataType Thrown if an incorrect data type is entered.
 	 */
-	public static void main(String args[]) throws incorrectDataType {
+	public static void main(String args[]) throws Exception {
 	    System.out.println("\nWelcome to FlipFit Gymnasium Application");
 	    Scanner in = new Scanner(System.in);
 	    int choice = 1;
@@ -85,7 +85,7 @@ public class GMSApplicationClient {
 	 * @param in The Scanner object for user input.
 	 * @throws userNotExist       Thrown if the user does not exist.
 	 */
-	public static void openLoginMenu(Scanner in) throws userNotExist {
+	public static void openLoginMenu(Scanner in) throws  Exception {
 		System.out.println("\nEnter your login credentials:-");
 		
 		System.out.print("$ UserId: ");

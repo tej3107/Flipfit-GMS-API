@@ -16,28 +16,28 @@ public interface AdminGMSInterface {
 	/**
 	 * Displays all gym owners.
 	 */
-	public ArrayList<GymOwner> seeAllGymOwner();
+	public ArrayList<GymOwner> seeAllGymOwner() throws Exception;
 	
 	/**
 	 * Displays all gyms.
 	 *
 	 * @return
 	 */
-	public ArrayList<Gymnasium> seeAllGyms();
+	public ArrayList<Gymnasium> seeAllGyms() throws Exception;
 	
 	/**
 	 * Checks if there are pending gym owner requests.
 	 *
 	 * @return true if there are pending gym owner requests, false otherwise
 	 */
-	public ArrayList<GymOwner> seePendingGymOwnerRequest();
+	public ArrayList<GymOwner> seePendingGymOwnerRequest() throws Exception;
 	
 	/**
 	 * Checks if there are pending gym requests.
 	 *
 	 * @return true if there are pending gym requests, false otherwise
 	 */
-	public ArrayList<Gymnasium> seePendingGymRequest();
+	public ArrayList<Gymnasium> seePendingGymRequest() throws Exception;
 	
 	/**
 	 * Approves a single gym owner request with the specified request ID.
@@ -45,14 +45,14 @@ public interface AdminGMSInterface {
 	 * @param userName the ID of the gym owner request to approve
 	 * @return true if the request is approved successfully, false otherwise
 	 */
-	public boolean approveSingleOwnerRequest(String userName);
+	public boolean approveSingleOwnerRequest(String userName) throws Exception;
 	
 	/**
 	 * Approves all pending gym owner requests.
 	 *
 	 * @return true if all requests are approved successfully, false otherwise
 	 */
-	public boolean approveAllOwnerRequest();
+	public boolean approveAllOwnerRequest() throws Exception;
 	
 	/**
 	 * Approves a single gym request with the specified gym ID.
@@ -60,19 +60,19 @@ public interface AdminGMSInterface {
 	 * @param gymId the ID of the gym request to approve
 	 * @return true if the request is approved successfully, false otherwise
 	 */
-	public boolean approveSingleGymRequest(String gymId);
+	public boolean approveSingleGymRequest(String gymId) throws Exception;
 	
 	/**
 	 * Approves all pending gym requests.
 	 *
 	 * @return true if all requests are approved successfully, false otherwise
 	 */
-	public boolean approveAllGymRequest();
+	public boolean approveAllGymRequest() throws Exception;
 	
 	/**
 	 * Blocks a gym owner with the specified owner ID.
 	 *
 	 * @param userName the ID of the gym owner to block
 	 */
-	public void blockGymOwner(String userName);
+	public boolean blockGymOwner(String userName) throws Exception;
 }

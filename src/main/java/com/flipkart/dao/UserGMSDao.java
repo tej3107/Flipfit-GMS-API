@@ -23,7 +23,7 @@ public class UserGMSDao {
 	 * @param password The password of the user.
 	 * @return The exit code: 0 for admin, 1 for customer, 2 for gym owner, 3 for trainer, 4 for invalid credentials.
 	 */	   
-   public int authenticateUser(String userName, String password) {
+   public int authenticateUser(String userName, String password) throws Exception{
 	   int exitCode = 4;
 	   
 	   Connection conn = null;
@@ -44,10 +44,11 @@ public class UserGMSDao {
 		   
 	   } catch(SQLException sqlExcep) {
 		      System.out.println(sqlExcep);
+			  throw sqlExcep;
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
+		  throw excep;
 	   }
-	   
-	   return exitCode;
+
    }
 }

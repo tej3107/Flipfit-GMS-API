@@ -48,7 +48,7 @@ public class UserService implements UserServiceInterface {
 	 *         - 2 for account locked
 	 *         - 3 for account expired
 	 */
-	public int authenticateUser(User userData) {
+	public int authenticateUser(User userData) throws Exception{
 		String userName = userData.getUserName();
 		String password = userData.getPassword();
 		

@@ -35,7 +35,7 @@ public interface UserServiceInterface {
 	 *         - 2 for account locked
 	 *         - 3 for account expired
 	 */
-	public int authenticateUser(User userData);
+	public int authenticateUser(User userData) throws Exception;
 	
 	/**
 	 * Logs out a user with the provided user data.

@@ -19,7 +19,7 @@ public class AdminGMSMenu {
 	 * @param in           The Scanner object for user input.
 	 * @param adminService The AdminGMSInterface implementation for performing admin actions.
 	 */
-	public int approveGymOwner(Scanner in, AdminGMSInterface adminService) {
+	public int approveGymOwner(Scanner in, AdminGMSInterface adminService) throws Exception{
 		System.out.print("Enter Owner ID: ");
 		String choice = in.next();
 
@@ -38,7 +38,7 @@ public class AdminGMSMenu {
 	 * @param in           The Scanner object for user input.
 	 * @param adminService The AdminGMSInterface implementation for performing admin actions.
 	 */
-	public void approveGym(Scanner in, AdminGMSInterface adminService) {
+	public void approveGym(Scanner in, AdminGMSInterface adminService) throws Exception{
 		// Add a slot timing menu here
 		System.out.print("Enter Gym ID: ");
 		String choice = in.next();
@@ -55,7 +55,7 @@ public class AdminGMSMenu {
 	 *
 	 * @param in The Scanner object for user input.
 	 */
-	public void adminActionPage(Scanner in) {
+	public void adminActionPage(Scanner in) throws Exception{
 		System.out.println("\nWelcome to FlipFit Gymnasium Application");
 		AdminGMSInterface adminService = new AdminGMSService();
 

@@ -67,7 +67,7 @@ public class GymOwnerResource {
 //        if (registrationResult.get(0).equals("true")) {
 //            // Build a successful response with the data
             return Response.status(Response.Status.OK)
-                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "Registration successful", gymOwnerList))
+                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retrieval successful", gymOwnerList))
                     .build();
         } catch(SQLException sqlExcep) {
             System.out.println(sqlExcep);
@@ -97,7 +97,7 @@ public class GymOwnerResource {
 //        if (gyms.get(0).equals("true")) {
 //            // Build a successful response with the data
             return Response.status(Response.Status.OK)
-                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "Registration successful", gyms))
+                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retrieval successful", gyms))
                     .build();
         } catch(SQLException sqlExcep) {
             System.out.println(sqlExcep);
@@ -128,7 +128,7 @@ public class GymOwnerResource {
 //        if (registrationResult.get(0).equals("true")) {
 //            // Build a successful response with the data
             return Response.status(Response.Status.OK)
-                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "Registration successful", addGym))
+                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retrieval successful", addGym))
                     .build();
         } catch(SQLException sqlExcep) {
             System.out.println(sqlExcep);
@@ -158,7 +158,7 @@ public class GymOwnerResource {
 //        if (registrationResult.get(0).equals("true")) {
 //            // Build a successful response with the data
             return Response.status(Response.Status.OK)
-                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "Registration successful", approvedList))
+                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retrieval successful", approvedList))
                     .build();
         } catch(SQLException sqlExcep) {
             System.out.println(sqlExcep);

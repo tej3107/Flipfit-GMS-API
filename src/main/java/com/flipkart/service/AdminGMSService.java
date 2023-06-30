@@ -23,7 +23,8 @@ public class AdminGMSService implements AdminGMSInterface{
 	/**
 	 * Displays all gym owners.
 	 */
-	public ArrayList<GymOwner> seeAllGymOwner() {
+	public ArrayList<GymOwner> seeAllGymOwner() throws Exception{
+//
 		return adminDBService.fetchGymOwnerDetails();
 	}
 	
@@ -32,7 +33,7 @@ public class AdminGMSService implements AdminGMSInterface{
 	 *
 	 * @return
 	 */
-	public ArrayList<Gymnasium> seeAllGyms() {
+	public ArrayList<Gymnasium> seeAllGyms() throws Exception{
 		return adminDBService.fetchGymnasiumDetails();
 	}
 	
@@ -41,7 +42,7 @@ public class AdminGMSService implements AdminGMSInterface{
 	 *
 	 * @return true if there are pending gym owner requests, false otherwise
 	 */
-	public ArrayList<GymOwner> seePendingGymOwnerRequest() {
+	public ArrayList<GymOwner> seePendingGymOwnerRequest() throws Exception{
 		return adminDBService.fetchPendingGymOwnerRequests();
 		
 	}
@@ -51,7 +52,7 @@ public class AdminGMSService implements AdminGMSInterface{
 	 *
 	 * @return true if there are pending gym requests, false otherwise
 	 */
-	public ArrayList<Gymnasium> seePendingGymRequest() {
+	public ArrayList<Gymnasium> seePendingGymRequest() throws Exception{
 		return adminDBService.fetchPendingGymnasiumRequest();
 	}
 	
@@ -61,7 +62,7 @@ public class AdminGMSService implements AdminGMSInterface{
 	 * @param userName the ID of the gym owner request to approve
 	 * @return true if the request is approved successfully, false otherwise
 	 */
-	public boolean approveSingleOwnerRequest(String userName) {
+	public boolean approveSingleOwnerRequest(String userName) throws Exception{
 		adminDBService.updateSingleGymOwnerRequests(userName);
 		return true;
 	}
@@ -71,7 +72,7 @@ public class AdminGMSService implements AdminGMSInterface{
 	 *
 	 * @return true if all requests are approved successfully, false otherwise
 	 */
-	public boolean approveAllOwnerRequest() {
+	public boolean approveAllOwnerRequest() throws Exception{
 		adminDBService.updateAllPendingGymOwnerRequests();
 		return true;
 	}
@@ -82,7 +83,7 @@ public class AdminGMSService implements AdminGMSInterface{
 	 * @param gymId the ID of the gym request to approve
 	 * @return true if the request is approved successfully, false otherwise
 	 */
-	public boolean approveSingleGymRequest(String gymId) {
+	public boolean approveSingleGymRequest(String gymId) throws Exception{
 		adminDBService.updateSingleGymnasiumRequests(gymId);
 		return true;
 	}
@@ -92,7 +93,7 @@ public class AdminGMSService implements AdminGMSInterface{
 	 *
 	 * @return true if all requests are approved successfully, false otherwise
 	 */
-	public boolean approveAllGymRequest() {
+	public boolean approveAllGymRequest() throws Exception{
 		adminDBService.updateAllPendingGymnasiumRequests();
 		return true;
 	}
@@ -102,7 +103,8 @@ public class AdminGMSService implements AdminGMSInterface{
 	 *
 	 * @param userName the ID of the gym owner to block
 	 */
-	public void blockGymOwner(String userName) {
+	public boolean blockGymOwner(String userName) throws Exception{
 		adminDBService.unApproveGymOwner(userName);
+		return true;
 	}
 }

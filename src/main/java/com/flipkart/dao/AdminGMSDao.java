@@ -16,7 +16,7 @@ public class AdminGMSDao {
 	* Fetches details of all gym owners from the database.
 	*/
    
-   public ArrayList<GymOwner> fetchGymOwnerDetails() {
+   public ArrayList<GymOwner> fetchGymOwnerDetails() throws Exception{
 //	   System.out.println("Connecting to database...");
 	   ArrayList<GymOwner> gymOwners = new ArrayList<>();
 	   Connection conn = null;
@@ -54,9 +54,11 @@ public class AdminGMSDao {
 		   }
 
 	   } catch(SQLException sqlExcep) {
-//		      System.out.println(sqlExcep);
+		      System.out.println(sqlExcep);
+			  throw sqlExcep;
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
+		  throw excep;
 	   }
 	   return gymOwners;
    }
@@ -65,7 +67,7 @@ public class AdminGMSDao {
    /**
     * Fetches details of all gymnasiums from the database.
     */
-   public ArrayList<Gymnasium> fetchGymnasiumDetails() {
+   public ArrayList<Gymnasium> fetchGymnasiumDetails() throws Exception{
 //	   System.out.println("Connecting to database...");
 
 	   ArrayList<Gymnasium> gyms = new ArrayList<>();
@@ -99,9 +101,11 @@ public class AdminGMSDao {
 		       System.out.println("No gymnasiums registered yet");
 		   }
 	   } catch(SQLException sqlExcep) {
-//		      System.out.println(sqlExcep);
+		      System.out.println(sqlExcep);
+			  throw sqlExcep;
 	   } catch(Exception excep) {
 	      excep.printStackTrace();
+		  throw excep;
 	   }
 	   return gyms;
    }
@@ -112,7 +116,7 @@ public class AdminGMSDao {
    * 
    * @return true if at least one pending gym owner request is present, false otherwise.
    */
-   public ArrayList<GymOwner> fetchPendingGymOwnerRequests() {
+   public ArrayList<GymOwner> fetchPendingGymOwnerRequests() throws Exception{
 	    // System.out.println("Connecting to database...");
 	   ArrayList<GymOwner> gymOwners = new ArrayList<>();
 	    Connection conn = null;
@@ -148,9 +152,11 @@ public class AdminGMSDao {
 	            System.out.println("No pending gymowner requests");
 	        }
 	    } catch (SQLException sqlExcep) {
-	        // System.out.println(sqlExcep);
+	         System.out.println(sqlExcep);
+			 throw sqlExcep;
 	    } catch (Exception excep) {
 	        excep.printStackTrace();
+			throw excep;
 	    }
 	    return gymOwners;
 	}
@@ -162,7 +168,7 @@ public class AdminGMSDao {
     * 
     * @return true if at least one pending gymnasium request is present, false otherwise.
     */
-   public ArrayList<Gymnasium> fetchPendingGymnasiumRequest() {
+   public ArrayList<Gymnasium> fetchPendingGymnasiumRequest() throws Exception{
 	    // System.out.println("Connecting to database...");
 
 	   ArrayList<Gymnasium> gyms = new ArrayList<>();
@@ -198,8 +204,10 @@ public class AdminGMSDao {
 	        }
 	    } catch (SQLException sqlExcep) {
 	         System.out.println(sqlExcep);
+			 throw sqlExcep;
 	    } catch (Exception excep) {
 	        excep.printStackTrace();
+			throw excep;
 	    }
 	    return gyms;
 	}
@@ -208,7 +216,7 @@ public class AdminGMSDao {
    /**
     * Updates all pending gym owner requests as approved in the database.
     */
-   public void updateAllPendingGymOwnerRequests() {
+   public boolean updateAllPendingGymOwnerRequests() throws Exception{
 //	   System.out.println("Connecting to database...");
 	   
 	   Connection conn = null;
@@ -219,10 +227,13 @@ public class AdminGMSDao {
 		   
 		   stmt = conn.prepareStatement(SQLConstants.SQL_APPR_ALL_OWNER_QUERY);
 		   stmt.executeUpdate();
-	   } catch(SQLException sqlExcep) {
-		      System.out.println(sqlExcep);
-	   } catch(Exception excep) {
-	      excep.printStackTrace();
+		   return true;
+	   } catch (SQLException sqlExcep) {
+		   System.out.println(sqlExcep);
+		   throw sqlExcep;
+	   } catch (Exception excep) {
+		   excep.printStackTrace();
+		   throw excep;
 	   } 
    }
 
@@ -230,7 +241,7 @@ public class AdminGMSDao {
    /**
     * Updates all pending gymnasium requests as approved in the database.
     */
-   public void updateAllPendingGymnasiumRequests() {
+   public boolean updateAllPendingGymnasiumRequests() throws Exception{
 //	   System.out.println("Connecting to database...");
 	   
 	   Connection conn = null;
@@ -241,10 +252,13 @@ public class AdminGMSDao {
 		   
 		   stmt = conn.prepareStatement(SQLConstants.SQL_APPR_ALL_GYM_QUERY);
 		   stmt.executeUpdate();
-	   } catch(SQLException sqlExcep) {
-		      System.out.println(sqlExcep);
-	   } catch(Exception excep) {
-	      excep.printStackTrace();
+		   return true;
+	   } catch (SQLException sqlExcep) {
+		   System.out.println(sqlExcep);
+		   throw sqlExcep;
+	   } catch (Exception excep) {
+		   excep.printStackTrace();
+		   throw excep;
 	   } 
    }
    
@@ -254,7 +268,7 @@ public class AdminGMSDao {
     * 
     * @param userName the ID of the gym owner request to be updated.
     */
-   public void updateSingleGymOwnerRequests(String userName) {
+   public boolean updateSingleGymOwnerRequests(String userName) throws Exception{
 //	   System.out.println("Connecting to database...");
 	   
 	   Connection conn = null;
@@ -266,10 +280,13 @@ public class AdminGMSDao {
 		   stmt = conn.prepareStatement(SQLConstants.SQL_APPR_SING_OWNER_REQ_QUERY);
 		   stmt.setString(1, userName);
 		   stmt.executeUpdate();
-	   } catch(SQLException sqlExcep) {
-		      System.out.println(sqlExcep);
-	   } catch(Exception excep) {
-	      excep.printStackTrace();
+		   return true;
+	   } catch (SQLException sqlExcep) {
+		   System.out.println(sqlExcep);
+		   throw sqlExcep;
+	   } catch (Exception excep) {
+		   excep.printStackTrace();
+		   throw excep;
 	   } 
    }
    
@@ -277,9 +294,9 @@ public class AdminGMSDao {
    /**
     * Updates a single gymnasium request as approved in the database.
     * 
-    * @param userName the ID of the gymnasium request to be updated.
+    * @param GymnasiumId the ID of the gymnasium request to be updated.
     */
-   public void updateSingleGymnasiumRequests(String userName) {
+   public boolean updateSingleGymnasiumRequests(String GymnasiumId) throws Exception{
 //	   System.out.println("Connecting to database...");
 	   
 	   Connection conn = null;
@@ -289,12 +306,15 @@ public class AdminGMSDao {
 		   conn = DBUtils.getConnection();
 		   
 		   stmt = conn.prepareStatement(SQLConstants.SQL_APPR_SING_GYM_REQ_QUERY);
-		   stmt.setString(1, userName);
+		   stmt.setString(1, GymnasiumId);
 		   stmt.executeUpdate();
-	   } catch(SQLException sqlExcep) {
-		      System.out.println(sqlExcep);
-	   } catch(Exception excep) {
-	      excep.printStackTrace();
+		   return true;
+	   } catch (SQLException sqlExcep) {
+		   System.out.println(sqlExcep);
+		   throw sqlExcep;
+	   } catch (Exception excep) {
+		   excep.printStackTrace();
+		   throw excep;
 	   } 
    }
    
@@ -302,9 +322,9 @@ public class AdminGMSDao {
    /**
     * Block a gym owner by rejecting their requests in the database.
     * 
-    * @param gymOwnerId the ID of the gym owner to be Block.
+    * @param userName the ID of the gym owner to be Block.
     */
-   public void unApproveGymOwner(String gymOwnerId) {
+   public boolean unApproveGymOwner(String userName) throws Exception{
 //	   System.out.println("Connecting to database...");
 	   
 	   Connection conn = null;
@@ -314,17 +334,20 @@ public class AdminGMSDao {
 		   conn = DBUtils.getConnection();
 		   
 		   stmt = conn.prepareStatement(SQLConstants.SQL_UNAPPR_SING_GYM_REQ_QUERY);
-		   stmt.setString(1, gymOwnerId);
+		   stmt.setString(1, userName);
 		   stmt.executeUpdate();
 		   
 		   stmt = conn.prepareStatement(SQLConstants.SQL_UNAPPR_SING_OWNER_REQ_QUERY);
-		   stmt.setString(1, gymOwnerId);
+		   stmt.setString(1, userName);
 		   stmt.executeUpdate();
+		   return true;
 		   
-	   } catch(SQLException sqlExcep) {
-		      System.out.println(sqlExcep);
-	   } catch(Exception excep) {
-	      excep.printStackTrace();
+	   } catch (SQLException sqlExcep) {
+		   System.out.println(sqlExcep);
+		   throw sqlExcep;
+	   } catch (Exception excep) {
+		   excep.printStackTrace();
+		   throw excep;
 	   }
    }
    
