@@ -21,6 +21,10 @@ public class Slots {
 		
 	}
 
+	public int getTime() {
+		return time;
+	}
+
 	public Slots(String slotId, String gymId, int capacity, String date, int time) {
 		this.slotId = slotId;
 		this.gymId = gymId;

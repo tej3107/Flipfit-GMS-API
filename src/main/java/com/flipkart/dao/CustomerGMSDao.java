@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CustomerGMSDao {
 	
@@ -170,6 +172,28 @@ public class CustomerGMSDao {
 	           excep.printStackTrace();
 			   throw excep;
 	    }
+
+		// Sort the slotsList based on (date, time, gymId) priority
+		Collections.sort(slotList, new Comparator<Slots>() {
+			@Override
+			public int compare(Slots slot1, Slots slot2) {
+				// Compare by date
+				int dateComparison = slot1.getDate().compareTo(slot2.getDate());
+				if (dateComparison != 0) {
+					return dateComparison;
+				}
+
+				// If dates are equal, compare by time
+				int timeComparison = Integer.compare(slot1.getTime(), slot2.getTime());
+				if (timeComparison != 0) {
+					return timeComparison;
+				}
+
+				// If times are equal, compare by gymId
+				return slot1.getGymId().compareTo(slot2.getGymId());
+			}
+		});
+
 		return slotList;
 	}
 	
@@ -311,6 +335,26 @@ public class CustomerGMSDao {
 	           excep.printStackTrace();
 			   throw excep;
 	    }
+
+		Collections.sort(bookedSlotList, new Comparator<BookedSlot>() {
+			@Override
+			public int compare(BookedSlot slot1, BookedSlot slot2) {
+				// Compare by slotDate
+				int dateComparison = slot1.getSlotDate().compareTo(slot2.getSlotDate());
+				if (dateComparison != 0) {
+					return dateComparison;
+				}
+
+				// If slotDates are equal, compare by slotTime
+				int timeComparison = Integer.compare(slot1.getSlotTime(), slot2.getSlotTime());
+				if (timeComparison != 0) {
+					return timeComparison;
+				}
+
+				// If slotTimes are equal, compare by gymName
+				return slot1.getGymName().compareTo(slot2.getGymName());
+			}
+		});
 		return bookedSlotList;
 	}
 	

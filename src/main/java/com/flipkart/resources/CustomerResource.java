@@ -26,15 +26,11 @@ public class CustomerResource {
     @Path("create")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response registerCustomerResources(@HeaderParam("Authorization") String sessionToken, Customer customer) {
+    public Response registerCustomerResources(Customer customer) {
 
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+
             ArrayList<String> registrationResult = customerDao.registerCustomer(customer);
 
 //        if (registrationResult.get(0).equals("true")) {

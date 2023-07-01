@@ -22,15 +22,11 @@ public class GymOwnerResource {
     @Path("register")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerGymOwnerResource(@HeaderParam("Authorization") String sessionToken, GymOwner owner){
+    public Response registerGymOwnerResource(GymOwner owner){
 //        User user = new User(owner.getUserName(),owner.getPassword(),2);
 
         try{
-            if (!session.isValidToken(sessionToken)) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+
             ArrayList<String> registrationResult = ownerDBService.registerGymOwner(owner);
 
 //        if (registrationResult.get(0).equals("true")) {
