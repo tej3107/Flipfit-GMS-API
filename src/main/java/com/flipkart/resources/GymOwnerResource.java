@@ -16,15 +16,21 @@ import java.util.ArrayList;
 @Path("gymOwner")
 public class GymOwnerResource {
     GymOwnerGMSDao ownerDBService = new GymOwnerGMSDao();
+    SessionAuthentication session = new SessionAuthentication();
 
     @POST
     @Path("register")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerGymOwnerResource(GymOwner owner){
+    public Response registerGymOwnerResource(@HeaderParam("Authorization") String sessionToken, GymOwner owner){
 //        User user = new User(owner.getUserName(),owner.getPassword(),2);
 
         try{
+            if (!session.isValidToken(sessionToken)) {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+                        .build();
+            }
             ArrayList<String> registrationResult = ownerDBService.registerGymOwner(owner);
 
 //        if (registrationResult.get(0).equals("true")) {
@@ -56,10 +62,15 @@ public class GymOwnerResource {
     @GET
     @Path("fetchDetail/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response fetchOwnerDetailsResource(@PathParam("userName") String userName){
+    public Response fetchOwnerDetailsResource(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName){
 //        return ownerDBService.fetchOwnerDetails(userName);
 
         try{
+            if (!session.isValidToken(sessionToken)) {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+                        .build();
+            }
             GymOwner gymOwner = ownerDBService.fetchOwnerDetails(userName);
             ArrayList<GymOwner> gymOwnerList = new ArrayList<>();
             gymOwnerList.add(gymOwner);
@@ -88,10 +99,15 @@ public class GymOwnerResource {
     @GET
     @Path("fetchGym/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response fetchMyGymsResource(@PathParam("userName") String userName) {
+    public Response fetchMyGymsResource(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
 //        return ownerDBService.fetchMyGyms(userName);
 
         try{
+            if (!session.isValidToken(sessionToken)) {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+                        .build();
+            }
             ArrayList<Gymnasium> gyms = ownerDBService.fetchMyGyms(userName);
 
 //        if (gyms.get(0).equals("true")) {
@@ -118,9 +134,14 @@ public class GymOwnerResource {
     @POST
     @Path("registerGym")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addGymDetailsResource(Gymnasium gym) {
+    public Response addGymDetailsResource(@HeaderParam("Authorization") String sessionToken, Gymnasium gym) {
 
         try{
+            if (!session.isValidToken(sessionToken)) {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+                        .build();
+            }
             ArrayList<Integer> slotAvailable = new ArrayList<>(gym.getSlotAvailable());
             int capacity = gym.getCapacity();
             ownerDBService.addGymDetails(gym, slotAvailable, capacity);
@@ -148,9 +169,14 @@ public class GymOwnerResource {
     @GET
     @Path("isApproved/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response isOwnerApproved(@PathParam("userName") String userName) {
+    public Response isOwnerApproved(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
 //        return ownerDBService.isOwnerApproved(userName);
         try{
+            if (!session.isValidToken(sessionToken)) {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+                        .build();
+            }
             boolean approved = ownerDBService.isOwnerApproved(userName);
             ArrayList<Boolean> approvedList = new ArrayList<>();
             approvedList.add(approved);

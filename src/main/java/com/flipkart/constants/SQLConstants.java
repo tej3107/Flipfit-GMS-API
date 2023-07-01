@@ -9,8 +9,11 @@ package com.flipkart.constants;
 public class SQLConstants {
 
 	public static final String SQL_AUTH_QUERY = "Select * From User Where userName = (?)";
-	
-	
+
+	public static final String SQL_INSERT_SESSION_QUERY = "Insert Into Session Values (?,?,?)";
+	public static final String SQL_DELETE_QUERY_FOR_SESSION = "DELETE from Session Where token = (?)";
+
+	public static final String SQL_FETCH_SESSION_QUERY = "Select * From Session Where token = (?)";
 	public static final String SQL_FETCH_ALL_OWNER_QUERY = "Select * From GymOwner";
 	public static final String SQL_FETCH_ALL_GYM_QUERY = "Select * From Gymnasium";
 	public static final String SQL_FETCH_PENDING_OWNER_REQ_QUERY = "Select * From GymOwner Where Approved = 0";
