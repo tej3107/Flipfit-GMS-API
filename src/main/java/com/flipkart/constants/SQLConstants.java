@@ -47,6 +47,9 @@ public class SQLConstants {
 	public static final String SQL_SIZE_CUSTOMER_REG_QUERY = "Select Count(*) From CustomerRegistration";
 	public static final String SQL_INSERT_BOOK_QUERY = "Insert Into BookedSlot (SlotId, userName, SlotDate, SlotTime) Values (?,?,?,?)";
 	public static final String SQL_FETCH_BOOK_QUERY_FOR_A_CUST = "Select * from BookedSlot Where userName = (?) And SlotDate = (?) And SlotTime = (?)";
+
+	public static final String SQL_FETCH_BOOKED_SLOT_QUERY_FOR_A_CUST = "Select * from BookedSlot Where userName = (?) And SlotId = (?)";
+
 	public static final String SQL_COUNT_CURRENT_CAPACITY_QUERY = "Select Count(*) From BookedSlot Where SlotId = (?)";
 	public static final String SQL_CHECK_CAPACITY_QUERY = "Select * From Slots Where SlotId = (?)";
 	public static final String SQL_FETCH_MY_BOOKINGS_QUERY = "Select * From BookedSlot Where userName = (?)";

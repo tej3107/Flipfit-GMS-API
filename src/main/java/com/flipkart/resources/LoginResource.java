@@ -29,6 +29,7 @@ public class LoginResource {
     @POST
     @Path("authenticate")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response auth(User user){
         try {
             String userName = user.getUserName();
@@ -63,6 +64,7 @@ public class LoginResource {
     @POST
     @Path("logout")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response logout(@HeaderParam("Authorization") String sessionToken){
         try {
             ArrayList<Boolean> booleanList = new ArrayList<>();

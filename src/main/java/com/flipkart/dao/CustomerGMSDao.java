@@ -366,6 +366,34 @@ public class CustomerGMSDao {
 	 * @param userName The ID of the customer.
 	 * @return true if the slot is changed successfully, false otherwise.
 	 */
+
+	public boolean sameSlotAlreadyBooked(String slotId,String userName) throws Exception{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_BOOKED_SLOT_QUERY_FOR_A_CUST);
+			stmt.setString(1, userName);
+			stmt.setString(2, slotId);
+			ResultSet output = stmt.executeQuery();
+
+			if(output.next()) {
+				return true;
+			}
+
+			return false;
+		}catch(SQLException sqlExcep) {
+			System.out.println(sqlExcep);
+			throw sqlExcep;
+		} catch(Exception excep) {
+			excep.printStackTrace();
+			throw excep;
+		}
+
+	}
+
 	public boolean changeGymSlot(String slotId,String userName) throws Exception{
 		// Connect to the database and retrieve the details of the new slot
 		// Retrieve the day and times of the new slot

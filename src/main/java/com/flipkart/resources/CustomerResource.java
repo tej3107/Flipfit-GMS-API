@@ -57,13 +57,6 @@ public class CustomerResource {
         }
     }
 
-    /**
-     * No Usage
-     **/
-    public Customer fetchCustomerDetails(String customerId) {
-        return new Customer();
-    }
-
     @GET
     @Path("fetchGym")
     @Produces(MediaType.APPLICATION_JSON)
@@ -157,19 +150,18 @@ public class CustomerResource {
 
     }
 
-
-
-
-
-
     public int bookSlots(String slotId, String userName) throws Exception{
-        if (isFull(slotId)) {
+        if(customerDao.sameSlotAlreadyBooked(userName, slotId)){
+            return 0;
+        }
+        else if (isFull(slotId)) {
             return 1;
         } else if (alreadyBooked(slotId, userName)) {
-            return 0;
+            //will change slot in it
+            return 2;
         } else {
             customerDao.bookSlots(slotId, userName);
-            return 2;
+            return 3;
         }
     }
 
