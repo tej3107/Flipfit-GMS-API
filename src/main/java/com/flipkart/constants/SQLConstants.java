@@ -52,6 +52,9 @@ public class SQLConstants {
 	public static final String SQL_FETCH_MY_BOOKINGS_QUERY = "Select * From BookedSlot Where userName = (?)";
 	public static final String SQL_FETCH_SLOT_DETAILS_QUERY = "Select * From Slots Where SlotId = (?)";
 	public static final String SQL_FETCH_USER_QUERY = "Select * From User Where userName = (?)";
+
+	public static final String SQL_FETCH_CUSTOMER_QUERY = "Select * From Customer Where userName = (?)";
+
 	public static final String SQL_REGISTER_CUSTOMER_QUERY = "Insert Into Customer Values (?,?,?,?,?,NULL)";
 	public static final String SQL_REGISTER_CUSTOMER_REG_QUERY = "Insert Into CustomerRegistration Values (?,NULL,?)";
 	public static final String SQL_REGISTER_CUSTOMER_USER_QUERY = "Insert Into User Values (?,?,?)";

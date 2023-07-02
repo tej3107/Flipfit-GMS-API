@@ -476,5 +476,42 @@ public class CustomerGMSDao {
 		}
 		return true;
 	}
+
+	public Customer getCustomerDetails(String userName) throws Exception {
+		// Connect to the database and register the customer
+		// Retrieve customer ID and register in the Customer schema
+		// Register in the CustomerRegistration schema
+		// Register in the User schema
+		// Handle any exceptions that occur
+		Customer cust = new Customer();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			// Getting customer Id
+			conn = DBUtils.getConnection();
+
+			stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_CUSTOMER_QUERY);
+			stmt.setString(1,userName);
+
+			ResultSet output = stmt.executeQuery();
+//			output1.next();
+			if(output.next()){
+				cust.setUserName(output.getString(1));
+				cust.setName(output.getString(2));
+				cust.setMobile(output.getString(3));
+				cust.setEmail(output.getString(4));
+				cust.setAddress(output.getString(5));
+
+			}
+
+			return cust;
+		} catch(SQLException sqlExcep) {
+			throw sqlExcep;
+		}
+		catch(Exception excep) {
+			throw excep;
+		}
+	}
 	
 }

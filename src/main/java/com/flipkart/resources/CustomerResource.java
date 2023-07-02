@@ -273,5 +273,41 @@ public class CustomerResource {
                     .build();
         }
 
+
+
+
     }
+
+    @GET
+    @Path("getCustomerDetails/{userName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCustomerDetails(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
+        try {
+            // Check if the session token is valid
+            if (!session.isValidToken(sessionToken)) {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+                        .build();
+            }
+            ArrayList<Customer> custList = new ArrayList<>();
+            custList.add(customerDao.getCustomerDetails(userName));
+            return Response.status(Response.Status.OK)
+                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retireval successful", custList))
+                    .build();
+        } catch (SQLException sqlExcep) {
+            System.out.println(sqlExcep);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), sqlExcep.getMessage()))
+                    .build();
+
+        } catch (Exception excep) {
+            excep.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new errorResponse(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), excep.getMessage()))
+                    .build();
+        }
+    }
+
+
+
 }
