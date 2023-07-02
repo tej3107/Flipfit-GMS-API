@@ -117,7 +117,7 @@ public class CustomerGMSDao {
 		
 		try {
 			conn = DBUtils.getConnection();
-		    stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_ALL_GYM_QUERY);
+		    stmt = conn.prepareStatement(SQLConstants.SQL_FETCH_APPR_GYM_QUERY);
 	
 		    ResultSet output = stmt.executeQuery();
 		    System.out.println("\tGymID\tName\tAddress");

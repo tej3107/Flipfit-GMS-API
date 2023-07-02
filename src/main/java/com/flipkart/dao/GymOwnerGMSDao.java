@@ -13,8 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * DAO class that provides database operations for Gym Owner management system.
@@ -215,6 +218,21 @@ public class GymOwnerGMSDao {
 
 	    return false;
 	}
+
+
+
+	public List<String> generateDates(int numberOfDates) {
+		List<String> dates = new ArrayList<>();
+		LocalDate currentDate = LocalDate.now();
+
+		for (int i = 0; i < numberOfDates; i++) {
+			String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy/E", Locale.ENGLISH));
+			dates.add(formattedDate);
+			currentDate = currentDate.plusDays(1);
+		}
+
+		return dates;
+	}
 	
 	/**
 	 * Adds gym details to the database.
@@ -223,6 +241,8 @@ public class GymOwnerGMSDao {
 	 * @param slotAvailable   The list of available slots.
 	 * @param capacity        The capacity of the gym.
 	 */
+
+
 	public void addGymDetails(Gymnasium gym, ArrayList<Integer> slotAvailable, int capacity) throws Exception{
 		   
 		Connection conn = null;
@@ -258,9 +278,9 @@ public class GymOwnerGMSDao {
 			   throw excep;
 	    }
 	    
-	    List<String> days=new ArrayList<String>();
-	    days.add("Monday");days.add("Tuesday");days.add("Wednesday");days.add("Thursday");
-	    days.add("Friday");days.add("Saturday");days.add("Sunday");
+	    List<String> days=generateDates(7);
+//	    days.add("Monday");days.add("Tuesday");days.add("Wednesday");days.add("Thursday");
+//	    days.add("Friday");days.add("Saturday");days.add("Sunday");
 	    
 	    
 	    for (String i : days) {

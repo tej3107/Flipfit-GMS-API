@@ -106,6 +106,7 @@ public class GymOwnerResource {
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
             }
+            System.out.println(userName);
             ArrayList<Gymnasium> gyms = ownerDBService.fetchMyGyms(userName);
 
 //        if (gyms.get(0).equals("true")) {

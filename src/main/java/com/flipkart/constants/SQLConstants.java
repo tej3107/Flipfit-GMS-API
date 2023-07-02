@@ -16,6 +16,8 @@ public class SQLConstants {
 	public static final String SQL_FETCH_SESSION_QUERY = "Select * From Session Where token = (?)";
 	public static final String SQL_FETCH_ALL_OWNER_QUERY = "Select * From GymOwner";
 	public static final String SQL_FETCH_ALL_GYM_QUERY = "Select * From Gymnasium";
+
+	public static final String SQL_FETCH_APPR_GYM_QUERY = "Select * From Gymnasium Where Approved = 1";
 	public static final String SQL_FETCH_PENDING_OWNER_REQ_QUERY = "Select * From GymOwner Where Approved = 0";
 	public static final String SQL_FETCH_PENDING_GYM_REQ_QUERY = "Select * From Gymnasium Where Approved = 0";
 	public static final String SQL_APPR_SING_OWNER_REQ_QUERY = "Update GymOwner Set Approved = 1 Where userName = (?)";
