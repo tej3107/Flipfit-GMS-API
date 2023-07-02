@@ -58,6 +58,7 @@ public class GymOwnerResource {
     @GET
     @Path("fetchDetail/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response fetchOwnerDetailsResource(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName){
 //        return ownerDBService.fetchOwnerDetails(userName);
 
@@ -95,6 +96,7 @@ public class GymOwnerResource {
     @GET
     @Path("fetchGym/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response fetchMyGymsResource(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
 //        return ownerDBService.fetchMyGyms(userName);
 
@@ -129,6 +131,7 @@ public class GymOwnerResource {
 
     @POST
     @Path("registerGym")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addGymDetailsResource(@HeaderParam("Authorization") String sessionToken, Gymnasium gym) {
 
@@ -164,6 +167,7 @@ public class GymOwnerResource {
 
     @GET
     @Path("isApproved/{userName}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response isOwnerApproved(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
 //        return ownerDBService.isOwnerApproved(userName);

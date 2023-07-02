@@ -68,9 +68,9 @@ public class LoginResource {
     public Response logout(@HeaderParam("Authorization") String sessionToken){
         try {
             ArrayList<Boolean> booleanList = new ArrayList<>();
-            booleanList.add(session.removeToken(sessionToken));
+            booleanList.add(session.removeToken(sessionToken.substring(7)));
             return Response.status(Response.Status.OK)
-                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "Registration successful", booleanList))
+                    .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "logout successful", booleanList))
                     .build();
         } catch (SQLException sqlExcep) {
             System.out.println(sqlExcep);

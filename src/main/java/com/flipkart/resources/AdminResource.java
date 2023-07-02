@@ -21,7 +21,8 @@ public class AdminResource {
     SessionAuthentication session = new SessionAuthentication();
     @GET
     @Path("seegymowner")
-    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response seeAllGymOwnerResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
@@ -52,7 +53,8 @@ public class AdminResource {
 
     @GET
     @Path("seegym")
-    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response seeAllGymResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
@@ -84,7 +86,8 @@ public class AdminResource {
 
     @GET
     @Path("seegymownerpendings")
-    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response seePendingGymOwnerRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
@@ -115,7 +118,8 @@ public class AdminResource {
 
     @GET
     @Path("seegympendings")
-    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response seePendingGymRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
@@ -146,6 +150,8 @@ public class AdminResource {
 
     @POST
     @Path("approveoneownerreq")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response approveSingleOwnerRequestResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("userName")String userName){
         try {
             // Check if the session token is valid
@@ -176,6 +182,8 @@ public class AdminResource {
 
     @POST
     @Path("approveonegymreq")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response approveSingleGymRequestResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("GymnasiumId")String GymnasiumId){
         try {
             // Check if the session token is valid
@@ -205,6 +213,8 @@ public class AdminResource {
 
     @POST
     @Path("approveallownerreq")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response approveAllOwnerRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
@@ -237,6 +247,7 @@ public class AdminResource {
 
     @POST
     @Path("approveallgymreq")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response approveAllGymRequestResource(@HeaderParam("Authorization") String sessionToken) {
         try {
@@ -267,6 +278,8 @@ public class AdminResource {
 
     @POST
     @Path("blockgymowner")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response blockGymOwnerResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("userName")String userName){
         try {
             // Check if the session token is valid

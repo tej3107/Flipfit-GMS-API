@@ -59,6 +59,7 @@ public class CustomerResource {
 
     @GET
     @Path("fetchGym")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response fetchGymListResource(@HeaderParam("Authorization") String sessionToken) {
         try {
@@ -89,6 +90,7 @@ public class CustomerResource {
 
     @GET
     @Path("fetchGymSlot/{gymId}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response fetchAvailableSlotResource(@HeaderParam("Authorization") String sessionToken, @PathParam("gymId") String gymId) {
         try {
@@ -120,6 +122,7 @@ public class CustomerResource {
 
     @GET
     @Path("bookslot/{slotId}/{userName}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response bookSlotsResource(@HeaderParam("Authorization") String sessionToken, @PathParam("slotId") String slotId, @PathParam("userName") String userName) {
 
@@ -151,7 +154,7 @@ public class CustomerResource {
     }
 
     public int bookSlots(String slotId, String userName) throws Exception{
-        if(customerDao.sameSlotAlreadyBooked(userName, slotId)){
+        if(customerDao.sameSlotAlreadyBooked(slotId, userName)){
             return 0;
         }
         else if (isFull(slotId)) {
@@ -175,6 +178,7 @@ public class CustomerResource {
 
     @GET
     @Path("booked/{userName}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response bookedSlotsResource(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
 
@@ -272,6 +276,7 @@ public class CustomerResource {
 
     @GET
     @Path("getCustomerDetails/{userName}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCustomerDetails(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
         try {
