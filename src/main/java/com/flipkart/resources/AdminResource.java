@@ -25,7 +25,7 @@ public class AdminResource {
     public Response seeAllGymOwnerResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -56,7 +56,7 @@ public class AdminResource {
     public Response seeAllGymResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -88,7 +88,7 @@ public class AdminResource {
     public Response seePendingGymOwnerRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -119,7 +119,7 @@ public class AdminResource {
     public Response seePendingGymRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -149,7 +149,7 @@ public class AdminResource {
     public Response approveSingleOwnerRequestResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("userName")String userName){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -179,7 +179,7 @@ public class AdminResource {
     public Response approveSingleGymRequestResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("GymnasiumId")String GymnasiumId){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -208,7 +208,7 @@ public class AdminResource {
     public Response approveAllOwnerRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -241,7 +241,7 @@ public class AdminResource {
     public Response approveAllGymRequestResource(@HeaderParam("Authorization") String sessionToken) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -270,7 +270,7 @@ public class AdminResource {
     public Response blockGymOwnerResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("userName")String userName){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();

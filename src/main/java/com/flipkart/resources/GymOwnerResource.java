@@ -62,7 +62,7 @@ public class GymOwnerResource {
 //        return ownerDBService.fetchOwnerDetails(userName);
 
         try{
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -99,7 +99,7 @@ public class GymOwnerResource {
 //        return ownerDBService.fetchMyGyms(userName);
 
         try{
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -133,7 +133,7 @@ public class GymOwnerResource {
     public Response addGymDetailsResource(@HeaderParam("Authorization") String sessionToken, Gymnasium gym) {
 
         try{
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -168,7 +168,7 @@ public class GymOwnerResource {
     public Response isOwnerApproved(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
 //        return ownerDBService.isOwnerApproved(userName);
         try{
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();

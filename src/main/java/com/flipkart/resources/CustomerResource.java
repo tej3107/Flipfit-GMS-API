@@ -63,7 +63,7 @@ public class CustomerResource {
     public Response fetchGymListResource(@HeaderParam("Authorization") String sessionToken) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -93,7 +93,7 @@ public class CustomerResource {
     public Response fetchAvailableSlotResource(@HeaderParam("Authorization") String sessionToken, @PathParam("gymId") String gymId) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -125,7 +125,7 @@ public class CustomerResource {
 
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -180,7 +180,7 @@ public class CustomerResource {
 
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -210,7 +210,7 @@ public class CustomerResource {
     public Response deleteSlotResource(@HeaderParam("Authorization") String sessionToken, @PathParam("username") String userName, @PathParam("slotId") String slotId) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -242,7 +242,7 @@ public class CustomerResource {
     public Response updateSlotCapacity(@HeaderParam("Authorization") String sessionToken, @PathParam("slotId") String slotId, @PathParam("value") int value) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
@@ -276,7 +276,7 @@ public class CustomerResource {
     public Response getCustomerDetails(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken)) {
+            if (!session.isValidToken(sessionToken.substring(7))) {
                 return Response.status(Response.Status.UNAUTHORIZED)
                         .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
                         .build();
