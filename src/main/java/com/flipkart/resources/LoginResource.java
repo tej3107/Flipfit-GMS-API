@@ -38,7 +38,7 @@ public class LoginResource {
             ArrayList<String> lst = new ArrayList<>();
             lst.add(String.valueOf(dbService.authenticateUser(userName, password)));
 
-            if(lst.get(0).equals("4")){
+            if(!lst.get(0).equals("4")){
                 lst.add(session.addValidToken(userName));
             }
 
