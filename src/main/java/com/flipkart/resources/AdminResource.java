@@ -26,11 +26,11 @@ public class AdminResource {
     public Response seeAllGymOwnerResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<GymOwner> gymOwners = adminDBService.fetchGymOwnerDetails();
 
             return Response.status(Response.Status.OK)
@@ -58,11 +58,11 @@ public class AdminResource {
     public Response seeAllGymResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Gymnasium> gyms = adminDBService.fetchGymnasiumDetails();
 
             return Response.status(Response.Status.OK)
@@ -91,11 +91,11 @@ public class AdminResource {
     public Response seePendingGymOwnerRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<GymOwner> gymOwnerRequests = adminDBService.fetchPendingGymOwnerRequests();
 
             return Response.status(Response.Status.OK)
@@ -123,11 +123,11 @@ public class AdminResource {
     public Response seePendingGymRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Gymnasium> pendingGymRequests = adminDBService.fetchPendingGymnasiumRequest();
 
             return Response.status(Response.Status.OK)
@@ -155,11 +155,11 @@ public class AdminResource {
     public Response approveSingleOwnerRequestResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("userName")String userName){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Boolean> booleanList = new ArrayList<>();
             booleanList.add(adminDBService.updateSingleGymOwnerRequests(userName));
             return Response.status(Response.Status.OK)
@@ -187,11 +187,11 @@ public class AdminResource {
     public Response approveSingleGymRequestResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("GymnasiumId")String GymnasiumId){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Boolean> booleanList = new ArrayList<>();
             booleanList.add(adminDBService.updateSingleGymnasiumRequests(GymnasiumId));
             return Response.status(Response.Status.OK)
@@ -218,11 +218,11 @@ public class AdminResource {
     public Response approveAllOwnerRequestResource(@HeaderParam("Authorization") String sessionToken){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Boolean> booleanList = new ArrayList<>();
             booleanList.add(adminDBService.updateAllPendingGymOwnerRequests());
             return Response.status(Response.Status.OK)
@@ -252,11 +252,11 @@ public class AdminResource {
     public Response approveAllGymRequestResource(@HeaderParam("Authorization") String sessionToken) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
 
             ArrayList<Boolean> booleanList = new ArrayList<>();
             booleanList.add(adminDBService.updateAllPendingGymnasiumRequests());
@@ -283,11 +283,11 @@ public class AdminResource {
     public Response blockGymOwnerResource(@HeaderParam("Authorization") String sessionToken, @QueryParam("userName")String userName){
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Boolean> booleanList = new ArrayList<>();
             booleanList.add(adminDBService.unApproveGymOwner(userName));
             return Response.status(Response.Status.OK)

@@ -64,11 +64,11 @@ public class CustomerResource {
     public Response fetchGymListResource(@HeaderParam("Authorization") String sessionToken) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Gymnasium> gymList = customerDao.fetchGymList();
             return Response.status(Response.Status.OK)
                     .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retireval successful", gymList))
@@ -95,11 +95,11 @@ public class CustomerResource {
     public Response fetchAvailableSlotResource(@HeaderParam("Authorization") String sessionToken, @PathParam("gymId") String gymId) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Slots> slotList = customerDao.fetchSlotList(gymId);
             return Response.status(Response.Status.OK)
                     .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retireval successful", slotList))
@@ -128,11 +128,11 @@ public class CustomerResource {
 
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Integer> lst = new ArrayList<>();
             lst.add(bookSlots(slotId, userName));
             return Response.status(Response.Status.OK)
@@ -184,11 +184,11 @@ public class CustomerResource {
 
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<BookedSlot> bookedSlots = customerDao.bookedGymList(userName);
             return Response.status(Response.Status.OK)
                     .entity(new customResponse<>(Response.Status.OK.getStatusCode(), "retireval successful", bookedSlots))
@@ -214,11 +214,11 @@ public class CustomerResource {
     public Response deleteSlotResource(@HeaderParam("Authorization") String sessionToken, @PathParam("username") String userName, @PathParam("slotId") String slotId) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Boolean> booleanList = new ArrayList<>();
             booleanList.add(customerDao.deleteSlot(userName, slotId));
             return Response.status(Response.Status.OK)
@@ -246,11 +246,11 @@ public class CustomerResource {
     public Response updateSlotCapacity(@HeaderParam("Authorization") String sessionToken, @PathParam("slotId") String slotId, @PathParam("value") int value) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Boolean> booleanList = new ArrayList<>();
             booleanList.add(customerDao.updateSlotCapacity(slotId, value));
             return Response.status(Response.Status.OK)
@@ -281,11 +281,11 @@ public class CustomerResource {
     public Response getCustomerDetails(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
         try {
             // Check if the session token is valid
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Customer> custList = new ArrayList<>();
             custList.add(customerDao.getCustomerDetails(userName));
             return Response.status(Response.Status.OK)

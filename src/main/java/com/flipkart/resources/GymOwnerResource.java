@@ -63,11 +63,11 @@ public class GymOwnerResource {
 //        return ownerDBService.fetchOwnerDetails(userName);
 
         try{
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             GymOwner gymOwner = ownerDBService.fetchOwnerDetails(userName);
             ArrayList<GymOwner> gymOwnerList = new ArrayList<>();
             gymOwnerList.add(gymOwner);
@@ -101,11 +101,11 @@ public class GymOwnerResource {
 //        return ownerDBService.fetchMyGyms(userName);
 
         try{
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             System.out.println(userName);
             ArrayList<Gymnasium> gyms = ownerDBService.fetchMyGyms(userName);
 
@@ -137,11 +137,11 @@ public class GymOwnerResource {
     public Response addGymDetailsResource(@HeaderParam("Authorization") String sessionToken, Gymnasium gym) {
 
         try{
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             ArrayList<Integer> slotAvailable = new ArrayList<>(gym.getSlotAvailable());
             int capacity = gym.getCapacity();
             ownerDBService.addGymDetails(gym, slotAvailable, capacity);
@@ -173,11 +173,11 @@ public class GymOwnerResource {
     public Response isOwnerApproved(@HeaderParam("Authorization") String sessionToken, @PathParam("userName") String userName) {
 //        return ownerDBService.isOwnerApproved(userName);
         try{
-            if (!session.isValidToken(sessionToken.substring(7))) {
-                return Response.status(Response.Status.UNAUTHORIZED)
-                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
-                        .build();
-            }
+//            if (!session.isValidToken(sessionToken.substring(7))) {
+//                return Response.status(Response.Status.UNAUTHORIZED)
+//                        .entity(new errorResponse(Response.Status.UNAUTHORIZED.getStatusCode(), "Invalid session token"))
+//                        .build();
+//            }
             boolean approved = ownerDBService.isOwnerApproved(userName);
             ArrayList<Boolean> approvedList = new ArrayList<>();
             approvedList.add(approved);
